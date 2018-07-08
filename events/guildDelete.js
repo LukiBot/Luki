@@ -10,4 +10,7 @@ module.exports = (client, guild) => {
     type: "STREAMING",
     url: "https://www.twitch.tv/discordapp"
   });
+  const BFD = require("bfd.js");
+  const bfd = new BFD('');
+  bfd.postStats(client.guilds.size, client.user.id);
 };
