@@ -1,7 +1,6 @@
-const { RichEmbed } = require("discord.js");
 const Discord = require("discord.js")
 
-exports.run = async (client, msg, args, level) => { // eslint-disable-line no-unused-vars
+exports.run = async (client, msg, args, level) => { 
     function checkDays(date) {
         let now = new Date();
         let diff = now.getTime() - date.getTime();
@@ -31,10 +30,10 @@ exports.run = async (client, msg, args, level) => { // eslint-disable-line no-un
         .addField("ID", msg.guild.id, true)
         .addField("Owner", `${msg.guild.owner.user.username}#${msg.guild.owner.user.discriminator}`, true)
         .addField("Region", region[msg.guild.region], true)
-        .addField("Members", msg.guild.memberCount, true)
-        .addField("Roles", msg.guild.roles.size, true)
-        .addField("Channels", msg.guild.channels.size, true)
+        .addField("Total | Humans | Bots", `${msg.guild.memberCount} | ${msg.guild.members.filter(member => !member.user.bot).size} | ${msg.guild.members.filter(member => member.user.bot).size}`, true)
         .addField("Verification Level", verifLevels[msg.guild.verificationLevel], true)
+        .addField("Channels", msg.guild.channels.size, true)
+        .addField("Roles", msg.guild.roles.size, true)
         .addField("Creation Date", `${msg.channel.guild.createdAt.toUTCString().substr(0, 16)} (${checkDays(msg.channel.guild.createdAt)})`, true)
         .setThumbnail(msg.guild.iconURL)
     msg.channel.send({embed});
