@@ -6,7 +6,7 @@ module.exports = (client, guild) => {
   if (client.settings.has(guild.id)) {
     client.settings.delete(guild.id);
   }
-  client.user.setActivity(`${client.guilds.size} servers | o!help`, {
+  client.user.setActivity(`${client.guilds.size} Guilds | o!help`, {
     type: "STREAMING",
     url: "https://www.twitch.tv/discordapp"
   });

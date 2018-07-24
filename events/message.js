@@ -1,6 +1,48 @@
 module.exports = (client, message) => {
-
+  
   if (message.author.bot) return;
+
+  const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./db/levels.db')
+const db2 = new sqlite3.Database('./db/serversettings.db')
+var userid = message.author.id;
+db.get(`SELECT exp FROM users WHERE id = ?`, [userid], (err, row) => {
+ if (err) {
+    console.log(err.message)
+ }
+ if (!row) {
+    db.run(`INSERT INTO users(exp, id) VALUES(?, ?)`, [1, userid], function(err) {
+        if (err) {
+          return console.log(err.message);
+        }
+        console.log(`A row has been inserted with rowid ${this.lastID}`);
+      });
+      return;
+}
+  var exp = row.exp + 1;
+  db.run(`UPDATE users SET exp = ? WHERE id = ?`, [exp, userid], function(err) {
+    if (err) {
+      return console.error(err.message);
+    }
+    db.get(`SELECT level, exp FROM users WHERE id = ?`, [userid], (err, row2) => {
+      if (row2.exp > row2.level * 10) {
+        var levelup = row2.level + 1
+        db.run(`UPDATE users SET exp = ?, level = ? WHERE id = ?`, [1, levelup, userid], (err) => {
+          if (err) return console.log(`Error in MESSAGE event : line 17`)
+          var serverid = message.guild.id;
+          db2.get(`SELECT leveling FROM servers WHERE id =?`, [serverid], (err, row3) => {
+            if (row3.leveling == 1) {
+              message.reply("You are now level " + levelup)
+            }
+          });
+        })
+      }
+    });
+  });
+})
+
+
+ 
 
 
   const settings = message.settings = client.getGuildSettings(message.guild);

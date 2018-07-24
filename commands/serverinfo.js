@@ -30,7 +30,7 @@ exports.run = async (client, msg, args, level) => {
         .addField("ID", msg.guild.id, true)
         .addField("Owner", `${msg.guild.owner.user.username}#${msg.guild.owner.user.discriminator}`, true)
         .addField("Region", region[msg.guild.region], true)
-        .addField("Total | Humans | Bots", `${msg.guild.memberCount} | ${msg.guild.members.filter(member => !member.user.bot).size} | ${msg.guild.members.filter(member => member.user.bot).size}`, true)
+        .addField("Total | Humans | Bots", `${msg.guild.members.size} | ${msg.guild.members.filter(member => !member.user.bot).size} | ${msg.guild.members.filter(member => member.user.bot).size}`, true)
         .addField("Verification Level", verifLevels[msg.guild.verificationLevel], true)
         .addField("Channels", msg.guild.channels.size, true)
         .addField("Roles", msg.guild.roles.size, true)
