@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./db/serversettings.db')
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-  if (message.member.permissions.has("ADMINISTRATOR") == false) return message.channel.send("You don't have enough permissions to excute this command!");
+  if (message.member.permissions.has("MANAGE_GUILD") == false) return message.channel.send("You don't have enough permissions to use this command!");
   if (!args[0]) return message.channel.send("Please specific a valid action! `o!levels on/off");
   var serverid = message.guild.id;
   if (args[0] == "on") {
@@ -44,6 +44,6 @@ exports.conf = {
 exports.help = {
   name: "levels",
   category: "Leveling System",
-  description: "Disable the leveling system",
+  description: "Turns the leveling system on and off",
   usage: "levels on/off"
 };

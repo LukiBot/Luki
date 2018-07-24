@@ -8,6 +8,8 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
       const fetched = await message.channel.fetchMessages({limit: deleteCount});
       message.channel.bulkDelete(fetched)
         .catch(error => message.reply(`Couldn't delete messages because of: ${error}`));
+    } else {
+      message.channel.send("You don't have enough permissions to use this command!");
     }
 };
   
