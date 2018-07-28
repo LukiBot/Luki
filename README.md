@@ -1,4 +1,4 @@
-# PenguBot [![Discord](https://discordapp.com/api/guilds/339085367770611713/embed.png)](https://discord.gg/76PAmCv) [![Servers](https://discordbots.org/api/widget/servers/463001284329472021.svg?noavatar=true)](https://discordbots.org/bot/463001284329472021/vote)
+# PenguBot [![Discord](https://discordapp.com/api/guilds/339085367770611713/embed.png)](https://discord.gg/76PAmCv) 
 
 Join Discord for Support and Development https://discord.gg/76PAmCv
 
