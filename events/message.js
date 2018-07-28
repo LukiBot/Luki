@@ -4,7 +4,7 @@ module.exports = (client, message) => {
 
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./db/users.db')
-const db2 = new sqlite3.Database('./db/serversettings.db')
+const db2 = new sqlite3.Database('./db/servers.db')
 var userid = message.author.id;
 db.get(`SELECT exp FROM users WHERE id = ?`, [userid], (err, row) => {
  if (err) {

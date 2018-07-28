@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./db/serversettings.db')
+const db = new sqlite3.Database('./db/servers.db')
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
   if (message.member.permissions.has("MANAGE_GUILD") == false) return message.channel.send("You don't have enough permissions to use this command!");

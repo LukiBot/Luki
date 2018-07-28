@@ -9,7 +9,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     if (err) return console.log(err.message);
     if (!row) {
       db.run(`INSERT INTO users(id) VALUES(?)`, [userid], function(err) {
-        console.log("added users to users database")
+        console.log("added a user to users database")
         db.run(`UPDATE users SET title = ? WHERE id =?`, [newtitle, userid], function(err) {
           if (err) return console.log(err.message);
           message.channel.send("Done :ok_hand:")
