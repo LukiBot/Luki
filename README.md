@@ -2,9 +2,6 @@
 
 Join Discord for Support and Development https://discord.gg/76PAmCv
 
-## Developers
-[**MrSheldon**](https://github.com/MrSheldon)
-
 ## Hosting
 We're proudly hosted by [DigitalOcean](https://m.do.co/c/805443143001). Visit the link by clicking the image below to avail Free $10 credits to try out the services.
 
