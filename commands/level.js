@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./db/levels.db')
+const db = new sqlite3.Database('./db/users.db')
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
   if (message.mentions.users.size > 0) {
@@ -52,7 +52,7 @@ exports.conf = {
 
 exports.help = {
   name: "level",
-  category: "Leveling System",
+  category: "Social",
   description: "check your/someone level!",
   usage: "level <@user>"
 };

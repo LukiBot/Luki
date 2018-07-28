@@ -43,7 +43,7 @@ exports.conf = {
 
 exports.help = {
   name: "levels",
-  category: "Leveling System",
+  category: "Server Settings",
   description: "Turns the leveling system on and off",
   usage: "levels on/off"
 };

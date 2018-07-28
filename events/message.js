@@ -2,8 +2,8 @@ module.exports = (client, message) => {
   
   if (message.author.bot) return;
 
-  const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./db/levels.db')
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./db/users.db')
 const db2 = new sqlite3.Database('./db/serversettings.db')
 var userid = message.author.id;
 db.get(`SELECT exp FROM users WHERE id = ?`, [userid], (err, row) => {
@@ -31,6 +31,15 @@ db.get(`SELECT exp FROM users WHERE id = ?`, [userid], (err, row) => {
           if (err) return console.log(`Error in MESSAGE event : line 17`)
           var serverid = message.guild.id;
           db2.get(`SELECT leveling FROM servers WHERE id =?`, [serverid], (err, row3) => {
+            if (!row3) {
+              db2.run(`INSERT INTO servers(id) VALUES(?)`, [serverid], function(err) {
+                  if (err) {
+                    return console.log(err.message);
+                  }
+                  console.log(`A row has been inserted with rowid ${this.lastID}`);
+                });
+                return;
+          }
             if (row3.leveling == 1) {
               message.reply("You are now level " + levelup)
             }
