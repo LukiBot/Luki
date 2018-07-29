@@ -13,4 +13,9 @@ module.exports = (client, guild) => {
   const BFD = require("bfd.js");
   const bfd = new BFD('');
   bfd.postStats(client.guilds.size, client.user.id);
+  const snekfetch = require('snekfetch')
+  snekfetch.post(`https://discordbots.org/api/bots/463001284329472021/stats`)
+    .set('Authorization', '')
+    .send({ server_count: client.guilds.size })
+    .then(() => console.log('Updated discordbots.org stats.'))
 };
