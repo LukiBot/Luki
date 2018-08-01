@@ -1,6 +1,6 @@
 # Oliver [![Discord](https://discordapp.com/api/guilds/339085367770611713/embed.png)](https://discord.gg/76PAmCv) 
 
-An open-source easy-to-clone free-to-use Discord bot created by MrSheldon#0001 for the LukiBot community
+The rewrite of Luki (still developed)
 
 Join Discord for Support and Development https://discord.gg/76PAmCv
 
