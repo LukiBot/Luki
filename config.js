@@ -49,10 +49,6 @@ const config = {
       name: "Head Moderator", 
       check: (message) => config.hmods.includes(message.author.id)
     },
-    { level: 5,
-      name: "Head Moderator", 
-      check: (message) => config.hmods.includes(message.author.id)
-    },
     { level: 6,
       name: "Adminsitrator", 
       check: (message) => config.admins.includes(message.author.id)
