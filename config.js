@@ -12,10 +12,17 @@ const config = {
 
   "token": "",
 
-  "defaultSettings" : {
-    "prefix": "o!"
+  "dashboard" : {
+    "oauthSecret": "",
+    "callbackURL": "",
+    "sessionSecret": "",
+    "domain": "",
+    "port": 80
   },
 
+  "defaultSettings" : {
+    "prefix": "o!",
+  },
 
   permLevels: [
     { level: 0,

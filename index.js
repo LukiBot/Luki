@@ -10,7 +10,6 @@ const client = new Discord.Client({ autoReconnect: true });
 
 client.config = require("./config.js");
 
-
 client.logger = require("./modules/Logger");
 
 require("./modules/functions.js")(client);

@@ -1,15 +1,23 @@
 module.exports = async client => {
-  client.logger.log(`[READY] ${client.user.tag}, ready to serve ${client.users.size} users in ${client.guilds.size} servers.`, "ready");
+
+  await client.wait(1000);
+
+  client.appInfo = await client.fetchApplication();
+  setInterval( async () => {
+    client.appInfo = await client.fetchApplication();
+  }, 60000);
+
+  if (!client.settings.has("default")) {
+    if (!client.config.defaultSettings) throw new Error("defaultSettings not preset in config.js or settings database. Bot cannot load.");
+    client.settings.set("default", client.config.defaultSettings);
+  }
+
+
+  require("../modules/dashboard")(client);  
+
   client.user.setActivity(`${client.guilds.size} Guilds | o!help`, {
     type: "STREAMING",
     url: "https://www.twitch.tv/discordapp"
   });
-  const BFD = require("bfd.js");
-  const bfd = new BFD('');
-  bfd.postStats(client.guilds.size, client.user.id);
-  const snekfetch = require('snekfetch')
-  snekfetch.post(`https://discordbots.org/api/bots/463001284329472021/stats`)
-    .set('Authorization', '')
-    .send({ server_count: client.guilds.size })
-    .then(() => console.log('Updated discordbots.org stats.'))
+  client.log("log", `${client.user.tag}, ready to serve ${client.users.size} users in ${client.guilds.size} servers.`, "Ready!");
 };

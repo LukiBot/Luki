@@ -1,0 +1,9 @@
+<%- include('blocks/header', {bot, user, path}) %>
+<div class="container">
+  <div class="jumbotron">
+    <div>
+      <h1><%= bot.user.username %> Dashboard</h1>
+      <p><a class="btn btn-primary" href="/dashboard" role="button">Login »</a></p>
+    </div>
+  </div>
+<% include ./blocks/footer %>
