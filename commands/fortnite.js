@@ -6,7 +6,7 @@ const Discord = require('discord.js');
 exports.run = async (client, msg, args, level) => {
   if (!['pc', 'xbl', 'psn'].includes(args[0])) return msg.channel.send('**Please Include valid platform**\n`o!fortnite pc/xbl/psn username`');
   if (!args[1]) return msg.channel.send('**Please Include username**\n`o!fortnite pc/xbl/psn username`');
-     var platform = args[0];
+     var platform = args[0].toLowerCase(); 
      var playerName = args[1];
      fortnite.user(playerName, platform).then(data => {
       let embed = new Discord.RichEmbed()
@@ -16,7 +16,7 @@ exports.run = async (client, msg, args, level) => {
       .addField("squad", `**Wins:** \`${data.stats.solo.wins}\`\n**Kills:** \`${data.stats.solo.kills}\`\n**Matches Played:** \`${data.stats.solo.matches}\``)
   msg.channel.send(embed)
   .catch(error => {
-    message.channel.send('Username not found!');
+    message.channel.send(`Username: ${playerName} not found!`);
 })
     }) 
 }
