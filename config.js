@@ -14,9 +14,9 @@ const config = {
 
   "dashboard" : {
     "oauthSecret": "",
-    "callbackURL": "",
-    "sessionSecret": "",
-    "domain": "",
+    "callbackURL": "http://localhost:80/callback",
+    "sessionSecret": "duaufgayfga6gfhabfahbfhabgh",
+    "domain": "http://localhost:80/",
     "port": 80
   },
 

@@ -1,0 +1,13 @@
+2018/08/03-00:45:06.617 ae8 Recovering log #12
+2018/08/03-00:45:06.618 ae8 Level-0 table #14: started
+2018/08/03-00:45:06.677 ae8 Level-0 table #14: 17476 bytes OK
+2018/08/03-00:45:06.736 ae8 Delete type=0 #12
+2018/08/03-00:45:06.737 ae8 Delete type=3 #10
+2018/08/03-00:45:06.737 40c8 Compacting 4@0 + 0@1 files
+2018/08/03-00:45:06.828 40c8 Generated table #16@0: 2 keys, 5933 bytes
+2018/08/03-00:45:06.828 40c8 Compacted 4@0 + 0@1 files => 5933 bytes
+2018/08/03-00:45:06.846 40c8 compacted to: files[ 0 1 0 0 0 0 0 ]
+2018/08/03-00:45:06.847 40c8 Delete type=2 #5
+2018/08/03-00:45:06.848 40c8 Delete type=2 #8
+2018/08/03-00:45:06.848 40c8 Delete type=2 #11
+2018/08/03-00:45:06.848 40c8 Delete type=2 #14

@@ -17,6 +17,9 @@ const helmet = require("helmet");
 
 const md = require("marked");
 
+const sql = require('sqlite3');
+const serversDB = new sql.Database(process.cwd() + "/db/servers.db")
+
 module.exports = (client) => {
 
   const dataDir = path.resolve(`${process.cwd()}${path.sep}dashboard`);
@@ -164,15 +167,59 @@ module.exports = (client) => {
     if (!guild) return res.status(404);
     const isManaged = guild && !!guild.member(req.user.id) ? guild.member(req.user.id).permissions.has("MANAGE_GUILD") : false;
     if (!isManaged && !req.session.isAdmin) res.redirect("/");
-    renderTemplate(res, req, "guild/manage.ejs", {guild});
+    serversDB.get(`SELECT * FROM servers WHERE id = ?`, [req.params.guildID], (err, row) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      let levelValue; 
+      if (!row) {
+        levelValue = 0
+      } else {
+        levelValue = row.leveling
+      }
+
+    renderTemplate(res, req, "guild/manage.ejs", {guild, levelValue});
+    })
   });
 
   app.post("/dashboard/:guildID/manage", checkAuth, (req, res) => {
     const guild = client.guilds.get(req.params.guildID);
     if (!guild) return res.status(404);
     const isManaged = guild && !!guild.member(req.user.id) ? guild.member(req.user.id).permissions.has("MANAGE_GUILD") : false;
-    if (!isManaged && !req.session.isAdmin) res.redirect("/");
-    client.writeSettings(guild.id, req.body);
+    if (!isManaged && !req.session.isAdmin) return res.redirect("/");
+    
+    let value;
+
+    if (req.body.levels == 'on') {
+      value = 1;
+    } else {
+      value = 0;
+    }
+
+    serversDB.get(`SELECT * FROM servers WHERE id = ?`, [req.params.guildID], (err, row) => {
+      if (err) {
+        return console.error(err.message);
+      }
+
+      if (!row) {
+        serversDB.run(`INSERT INTO servers(id, leveling) VALUES(?, ?)`, [req.params.guildID, value], function(err) {
+          if (err) {
+            return console.log(err.message);
+          }
+
+        });
+
+      } else {
+        serversDB.run(`UPDATE servers SET leveling = ? WHERE id =? `, [value, req.params.guildID], function(err) {
+          if (err) {
+            return console.error(err.message);
+          }
+         
+        });
+
+      }
+    
+    });
     res.redirect("/dashboard/"+req.params.guildID+"/manage");
   });
   
