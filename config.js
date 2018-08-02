@@ -8,11 +8,12 @@ const config = {
   "mods": [],
   "premiump": [],
   "premium": [],
+  "trusted": [],
 
   "token": "",
 
   "defaultSettings" : {
-    "prefix": ""
+    "prefix": "o!"
   },
 
 
@@ -20,6 +21,10 @@ const config = {
     { level: 0,
       name: "User", 
       check: () => true
+    },
+    { level: 1,
+      name: "Trusted", 
+      check: (message) => config.trusted.includes(message.author.id)
     },
     { level: 2,
       name: "Premium", 
