@@ -12,6 +12,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     await member.ban(reason)
       .catch(error => message.reply(`Sorry ${message.author} I couldn't ban because of : ${error}`));
     message.reply(`${member.user.tag} has been banned by ${message.author.tag} because: ${reason}`);
+    client.modlog(message.guild.id, "Ban", message.author.tag, member.user.tag, reason, "FF0000")
   } else {
     message.channel.send("You don't have enough permissions to use this command!");
   }

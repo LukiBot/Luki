@@ -9,8 +9,8 @@
             .switch {
               position: relative;
               display: inline-block;
-              width: 60px;
-              height: 34px;
+              width: 50px;
+              height: 24px;
             }
             
             .switch input {display:none;}
@@ -30,8 +30,8 @@
             .slider:before {
               position: absolute;
               content: "";
-              height: 26px;
-              width: 26px;
+              height: 16px;
+              width: 16px;
               left: 4px;
               bottom: 4px;
               background-color: white;
@@ -40,11 +40,11 @@
             }
             
             input:checked + .slider {
-              background-color: #2196F3;
+              background-color: #42b581;
             }
             
             input:focus + .slider {
-              box-shadow: 0 0 1px #2196F3;
+              box-shadow: 0 0 1px #42b581;
             }
             
             input:checked + .slider:before {
@@ -55,7 +55,7 @@
             
             /* Rounded sliders */
             .slider.round {
-              border-radius: 34px;
+              border-radius: 24px;
             }
             
             .slider.round:before {
@@ -67,20 +67,20 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item" style="padding: 0;">
             <div class="input-group mb-2 mr-sm-2 mb-sm-0" style="width: 100%; margin: 0 !important;">
-              <div class="input-group-addon" style="width: 150px; text-align: right; margin: 0;">
-              <h5>Levels</h5>
-              </div>
-              <p>&nbsp;&nbsp;&nbsp;</p><label class="switch">
-              <% if (levelValue == 0) { %>
-                <input type="checkbox" class="form-control" name="levels">
-              <% } else { %>
-              <input type="checkbox" class="form-control" name="levels" checked="checked">
-              <% } %>
-              <span class="slider round"></span>
-            </label>
             </div>
           </li>
         </ul>
+        <br>
+     <label for="levels">Leveling System</label>
+     <br>
+        <label class="switch">
+        <% if (levelValue == 0) { %>
+          <input type="checkbox" class="form-control" name="levels">
+        <% } else { %>
+        <input type="checkbox" class="form-control" name="levels" checked="checked">
+        <% } %>
+        <span class="slider round"></span>
+      </label>
         <div style="width: 100%; text-align: right; margin-top: 20px;">
           <button type="submit" class="btn btn-primary">Save Changes <i class="fa fa-fw fa-save" aria-hidden="true"></i></button>
         </div>

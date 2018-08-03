@@ -17,6 +17,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         return message.reply(`Sorry ${message.author} I couldn't mute this user`);
       });
     message.reply(`${member.user.tag} has been unmuted by ${message.author.tag} because: ${reason}`);
+    client.modlog(message.guild.id, "Unmute", message.author.tag, member.user.tag, reason, "00FF00")
   } else {
     message.channel.send("You don't have enough permissions to use this command!");
   }

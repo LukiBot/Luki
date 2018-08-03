@@ -21,6 +21,29 @@ module.exports = (client) => {
     console.log(`[${type}] [${title}]${msg}`);
   };
 
+  client.modlog = (serverid, type, mod, badguy, reason, color) => {
+    const sqlite3 = require("sqlite3");
+    const Discord = require("discord.js");
+    const { RichEmbed } = require("discord.js");
+    const db = new sqlite3.Database('./db/servers.db');
+    const guild = client.guilds.get(serverid);
+
+    if (!reason) reason = "No reason provided";
+
+    db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
+      if (err) return console.log(err.message);
+      if (row.modlog == "off") return console.log(`Modlog is disabled on ${guild.name}`)
+      const embed = new Discord.RichEmbed()
+      .setTitle(type + " case")
+      .setColor(color)
+      .addField("Moderator:", mod, true)
+      .addField("User:", badguy, true)
+      .addField("Reason:", reason, false)
+      const channel = client.channels.get(row.modlog)
+      channel.send(embed) 
+      });
+  };
+
  client.getGuildSettings = (guild) => {
   const def = client.config.defaultSettings;
   if (!guild) return def;
