@@ -2,7 +2,7 @@
   <h2>Server Management</h2>
   <div class="row">
     <div class="col col-4">
-      <%- include('../blocks/guild-card', {guild, levelValue}) %>
+      <%- include('../blocks/guild-card', {guild, levelValue, modLogChannel, serverLogChannel}) %>
     </div>
     <div class="col">
         <style>
@@ -81,6 +81,60 @@
         <% } %>
         <span class="slider round"></span>
       </label>
+      <br>
+      <br>
+      <label for="modlog">Mod-Log</label>
+      <br>
+    <div class="form-group">
+      <select style="width: 100px;" name="modlog" class="form-control">
+          <% if (modLogChannel == 'off'){ %>
+            <option selected value="off">Off</option>
+            <% 
+            guild.channels.forEach(channel => {
+                if (channel.type != 'text') return;
+              %>
+              <option value="<%= channel.id %>">#<%= channel.name %></option>
+              <% }); %>  
+            <% } %>
+            <% if (modLogChannel != 'off'){ %>
+            <option value="off">Off</option>
+            <% 
+            guild.channels.forEach(channel => {
+                if (channel.type != 'text') return;
+                if (channel.id == modLogChannel){ %>
+                <option selected value="<%= channel.id %>">#<%= channel.name %></option>
+              <% } %>
+              <option value="<%= channel.id %>">#<%= channel.name %></option>
+              <% }); %>  
+            <% } %>
+      </select>
+    </div>
+    <label for="serverlog">Server-Log</label>
+    <br>
+  <div class="form-group">
+    <select style="width: 100px;" name="serverlog" class="form-control">
+      <% if (serverLogChannel == 'off'){ %>
+        <option selected value="off">Off</option>
+        <% 
+        guild.channels.forEach(channel => {
+            if (channel.type != 'text') return;
+          %>
+          <option value="<%= channel.id %>">#<%= channel.name %></option>
+          <% }); %>  
+        <% } %>
+        <% if (serverLogChannel != 'off'){ %>
+        <option value="off">Off</option>
+        <% 
+        guild.channels.forEach(channel => {
+            if (channel.type != 'text') return;
+            if (channel.id == serverLogChannel){ %>
+            <option selected value="<%= channel.id %>">#<%= channel.name %></option>
+          <% } %>
+          <option value="<%= channel.id %>">#<%= channel.name %></option>
+          <% }); %>  
+        <% } %>
+    </select>
+  </div>
         <div style="width: 100%; text-align: right; margin-top: 20px;">
           <button type="submit" class="btn btn-primary">Save Changes <i class="fa fa-fw fa-save" aria-hidden="true"></i></button>
         </div>

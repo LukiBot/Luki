@@ -172,13 +172,28 @@ module.exports = (client) => {
         return console.error(err.message);
       }
       let levelValue; 
+      let modLogChannel;
+      let serverLogChannel;
       if (!row) {
-        levelValue = 0
+        levelValue = 0;
+        modLogChannel = 'off';
+        serverLogChannel = 'off';
       } else {
+        if (row.modlog == '') {
+          modLogChannel = 'off'
+        } else {
+          modLogChannel = row.modlog
+        }
+        if (row.serverlog == '') {
+          serverLogChannel = 'off'
+        } else {
+          serverLogChannel = row.serverlog
+        }
+
         levelValue = row.leveling
       }
 
-    renderTemplate(res, req, "guild/manage.ejs", {guild, levelValue});
+    renderTemplate(res, req, "guild/manage.ejs", {guild, levelValue, modLogChannel, serverLogChannel});
     })
   });
 
@@ -202,7 +217,7 @@ module.exports = (client) => {
       }
 
       if (!row) {
-        serversDB.run(`INSERT INTO servers(id, leveling) VALUES(?, ?)`, [req.params.guildID, value], function(err) {
+        serversDB.run(`INSERT INTO servers(id, leveling, modlog, serverlog) VALUES(?, ?, ?, ?)`, [req.params.guildID, value, req.body.modlog, req.body.serverlog], function(err) {
           if (err) {
             return console.log(err.message);
           }
@@ -210,7 +225,7 @@ module.exports = (client) => {
         });
 
       } else {
-        serversDB.run(`UPDATE servers SET leveling = ? WHERE id =? `, [value, req.params.guildID], function(err) {
+        serversDB.run(`UPDATE servers SET leveling = ?, modlog = ?, serverlog = ? WHERE id =? `, [value,  req.body.modlog, req.body.serverlog, req.params.guildID], function(err) {
           if (err) {
             return console.error(err.message);
           }
