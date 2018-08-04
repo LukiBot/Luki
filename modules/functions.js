@@ -45,12 +45,11 @@ module.exports = (client) => {
   };
 
 
-  client.serverlogMessageEdited = (serverid, before, after, author, MSGchannel, MSGid) => {
+  client.serverlogMessageEdited = (before, after, author, MSGchannel, MSGid) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
     const db = new sqlite3.Database('./db/servers.db');
-    const guild = client.guilds.get(serverid);
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (err) return console.log(err.message);
@@ -67,12 +66,11 @@ module.exports = (client) => {
       });
   };
 
-  client.serverlogMemberJoined = (serverid, username, avatar) => {
+  client.serverlogMemberJoined = (username, avatar) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
     const db = new sqlite3.Database('./db/servers.db');
-    const guild = client.guilds.get(serverid);
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (err) return console.log(err.message);
@@ -86,12 +84,11 @@ module.exports = (client) => {
       });
   };
 
-  client.serverlogMemberLeft = (serverid, username, avatar) => {
+  client.serverlogMemberLeft = (username, avatar) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
     const db = new sqlite3.Database('./db/servers.db');
-    const guild = client.guilds.get(serverid);
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (err) return console.log(err.message);
@@ -105,12 +102,11 @@ module.exports = (client) => {
       });
   };
 
-  client.serverlogRoleCreated = (serverid, rolename) => {
+  client.serverlogRoleCreated = (rolename) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
     const db = new sqlite3.Database('./db/servers.db');
-    const guild = client.guilds.get(serverid);
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (err) return console.log(err.message);
@@ -123,12 +119,11 @@ module.exports = (client) => {
       });
   };
 
-  client.serverlogRoleDeleted = (serverid, rolename) => {
+  client.serverlogRoleDeleted = (rolename) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
     const db = new sqlite3.Database('./db/servers.db');
-    const guild = client.guilds.get(serverid);
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (err) return console.log(err.message);
@@ -141,12 +136,11 @@ module.exports = (client) => {
       });
   };
 
-  client.serverlogChannelCreated = (serverid, channelname) => {
+  client.serverlogChannelCreated = (channelname) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
     const db = new sqlite3.Database('./db/servers.db');
-    const guild = client.guilds.get(serverid);
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (err) return console.log(err.message);
@@ -159,12 +153,11 @@ module.exports = (client) => {
       });
   };
 
-  client.serverlogChannelDeleted = (serverid, channelname) => {
+  client.serverlogChannelDeleted = (channelname) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
     const db = new sqlite3.Database('./db/servers.db');
-    const guild = client.guilds.get(serverid);
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (err) return console.log(err.message);
