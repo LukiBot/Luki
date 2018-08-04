@@ -178,7 +178,7 @@ module.exports = (client) => {
     res.redirect(`/`);
   });
 
-  app.get("/user/:usersID", checkAuth, (req, res) => {
+  app.get("/user/:usersID", (req, res) => {
     const user = client.users.get(req.params.userID);   
     if (!user) return res.status(404);
     usersDB.get(`SELECT * FROM users WHERE id = ?`, [req.params.userID], (err, row) => {
