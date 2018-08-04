@@ -21,7 +21,7 @@ const config = {
   },
 
   "defaultSettings" : {
-    "prefix": "o!",
+    "prefix": "",
   },
 
   permLevels: [
