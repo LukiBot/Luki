@@ -32,7 +32,7 @@ module.exports = (client) => {
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (err) return console.log(err.message);
-      if (row.modlog == "off") return console.log(`Modlog is disabled on ${guild.name}`)
+      if (row.modlog == 'off') return console.log(`Modlog is disabled on ${guild.name}`)
       const embed = new Discord.RichEmbed()
       .setTitle(type + " case")
       .setColor(color)
@@ -45,7 +45,7 @@ module.exports = (client) => {
   };
 
 
-  client.serverlogMessageEdited = (before, after, author, MSGchannel, MSGid) => {
+  client.serverlogMessageEdited = (serverid, before, after, author, MSGchannel, MSGid) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
@@ -53,7 +53,7 @@ module.exports = (client) => {
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (err) return console.log(err.message);
-      if (row.serverlog == "off") return console.log(`Serverlog is disabled on ${guild.name}`)
+      if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
       const channel = client.channels.get(row.serverlog)
       const embed = new Discord.RichEmbed()
       .setTitle("Message Edit")
@@ -66,7 +66,7 @@ module.exports = (client) => {
       });
   };
 
-  client.serverlogMemberJoined = (username, avatar) => {
+  client.serverlogMemberJoined = (serverid, username, avatar) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
@@ -74,7 +74,7 @@ module.exports = (client) => {
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (err) return console.log(err.message);
-      if (row.serverlog == "off") return console.log(`Serverlog is disabled on ${guild.name}`)
+      if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
       const channel = client.channels.get(row.serverlog)
       const embed = new Discord.RichEmbed()
       .setTitle("New Member")
@@ -84,7 +84,7 @@ module.exports = (client) => {
       });
   };
 
-  client.serverlogMemberLeft = (username, avatar) => {
+  client.serverlogMemberLeft = (serverid, username, avatar) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
@@ -92,7 +92,7 @@ module.exports = (client) => {
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (err) return console.log(err.message);
-      if (row.serverlog == "off") return console.log(`Serverlog is disabled on ${guild.name}`)
+      if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
       const channel = client.channels.get(row.serverlog)
       const embed = new Discord.RichEmbed()
       .setTitle("Member Left")
@@ -102,7 +102,7 @@ module.exports = (client) => {
       });
   };
 
-  client.serverlogRoleCreated = (rolename) => {
+  client.serverlogRoleCreated = (serverid, rolename) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
@@ -110,7 +110,7 @@ module.exports = (client) => {
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (err) return console.log(err.message);
-      if (row.serverlog == "off") return console.log(`Serverlog is disabled on ${guild.name}`)
+      if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
       const channel = client.channels.get(row.serverlog)
       const embed = new Discord.RichEmbed()
       .setTitle("Role Created")
@@ -119,7 +119,7 @@ module.exports = (client) => {
       });
   };
 
-  client.serverlogRoleDeleted = (rolename) => {
+  client.serverlogRoleDeleted = (serverid, rolename) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
@@ -127,7 +127,7 @@ module.exports = (client) => {
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (err) return console.log(err.message);
-      if (row.serverlog == "off") return console.log(`Serverlog is disabled on ${guild.name}`)
+      if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
       const channel = client.channels.get(row.serverlog)
       const embed = new Discord.RichEmbed()
       .setTitle("Role Deleted")
@@ -136,7 +136,7 @@ module.exports = (client) => {
       });
   };
 
-  client.serverlogChannelCreated = (channelname) => {
+  client.serverlogChannelCreated = (serverid, channelname) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
@@ -144,7 +144,7 @@ module.exports = (client) => {
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (err) return console.log(err.message);
-      if (row.serverlog == "off") return console.log(`Serverlog is disabled on ${guild.name}`)
+      if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
       const channel = client.channels.get(row.serverlog)
       const embed = new Discord.RichEmbed()
       .setTitle("Channel Created")
@@ -153,7 +153,7 @@ module.exports = (client) => {
       });
   };
 
-  client.serverlogChannelDeleted = (channelname) => {
+  client.serverlogChannelDeleted = (serverid, channelname) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
@@ -161,7 +161,7 @@ module.exports = (client) => {
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (err) return console.log(err.message);
-      if (row.serverlog == "off") return console.log(`Serverlog is disabled on ${guild.name}`)
+      if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
       const channel = client.channels.get(row.serverlog)
       const embed = new Discord.RichEmbed()
       .setTitle("Channel Deleted")

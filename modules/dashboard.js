@@ -19,6 +19,7 @@ const md = require("marked");
 
 const sql = require('sqlite3');
 const serversDB = new sql.Database(process.cwd() + "/db/servers.db")
+const usersDB = new sql.Database(process.cwd() + "/db/users.db")
 
 module.exports = (client) => {
 
@@ -126,11 +127,6 @@ module.exports = (client) => {
   app.get("/", (req, res) => {
     renderTemplate(res, req, "index.ejs");
   });
-
-
-  app.get("/commands", (req, res) => {
-    renderTemplate(res, req, "commands.ejs", {md});
-  });
   
   app.get("/stats", (req, res) => {
     const duration = moment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
@@ -155,6 +151,54 @@ module.exports = (client) => {
   app.get("/dashboard", checkAuth, (req, res) => {
     const perms = Discord.EvaluatedPermissions;
     renderTemplate(res, req, "dashboard.ejs", {perms});
+  });
+
+  app.get("/me", checkAuth, (req, res) => {
+    usersDB.get(`SELECT * FROM users WHERE id = ?`, [req.user.id], (err, row) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      let userLevel
+      let userTitle
+      let userBio
+      if (!row) {
+        userLevel = 1;
+        userTitle = "No title was found";
+        userBio = "No bio was found";
+      } else {
+        userLevel = row.level
+        userTitle = row.title
+        userBio = row.bio
+      }
+      renderTemplate(res, req, "me.ejs", {userLevel, userTitle, userBio});
+    })
+  });
+
+  app.get("/user", (req, res) => {
+    res.redirect(`/`);
+  });
+
+  app.get("/user/:usersID", checkAuth, (req, res) => {
+    const user = client.users.get(req.params.userID);   
+    if (!user) return res.status(404);
+    usersDB.get(`SELECT * FROM users WHERE id = ?`, [req.params.userID], (err, row) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      let userLevel
+      let userTitle
+      let userBio
+      if (!row) {
+        userLevel = 1;
+        userTitle = "No title was found";
+        userBio = "No bio was found";
+      } else {
+        userLevel = row.level
+        userTitle = row.title
+        userBio = row.bio
+      }
+      renderTemplate(res, req, "user.ejs", {userLevel, userTitle, userBio});
+    })
   });
 
   app.get("/dashboard/:guildID", checkAuth, (req, res) => {
