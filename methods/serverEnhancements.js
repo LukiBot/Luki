@@ -7,22 +7,23 @@ exports.function = {
   let members = guild.members.map(m => m.user.tag); //member tags
   let botCount = guild.members.filter(m => m.user.bot == true).size; //bot count
   let botAccounts = guild.members.filter(m => m.user.bot == true).map(bot => bot.user.tag); // Get bot names
-  let userCount = guild.members.size - botCount;
-  let userAccounts = guild.members.filter(m => m.user.bot == false).map(m => m.user.tag);
-  let roleCount = guild.roles.size;
-  let roleNames = guild.roles.map(role => role.name);
-  let created = guild.createdAt;
+  let userCount = guild.members.size - botCount; //Get human count
+  let userAccounts = guild.members.filter(m => m.user.bot == false).map(human => human.user.tag); //Get human names
+  let roleCount = guild.roles.size; //Get role amount
+  let roleNames = guild.roles.map(role => role.name); //Get role names.
+  let created = guild.createdAt; //Get the date which the guild was created at.
   return {
    members: members,
    botUsers: botAccounts,
    botCount: botCount,
-   memberCount: userCount,
-   memberNames: userAccounts,
+   humanCount: userCount,
+   humanNames: userAccounts,
    role: {
     names: roleNames,
     amount: roleCount
-   } 
+   },
+   created: created
   };
-   //End of getGuildInfo(guild)
+   //End of getGuildInfo(guildCollection)
  }
 }
