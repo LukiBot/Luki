@@ -1,5 +1,5 @@
 require('discord.js');
-exports.function = {
+module.exports = {
  getGuildInfo: function (guild) {
   /*
   Returns Object
