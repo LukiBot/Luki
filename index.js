@@ -53,8 +53,37 @@ const init = async () => {
     client.levelCache[thisLevel.name] = thisLevel.level;
   }
 
-  
+  client.on('guildMemberAdd', Member => {
+  let serverid = Member.guild.id;
+  let username = Member.user.tag;
+  let avatar = Member.user.avatarURL
+  client.serverlogMemberJoined(serverid, username, avatar)
 
+  })
+
+  client.on('guildMemberRemove', Member => {
+  let serverid = Member.guild.id;
+  let username = Member.user.tag;
+  let avatar = Member.user.avatarURL
+  client.serverlogMemberLeft(serverid, username, avatar)
+  })
+
+  client.on('roleCreate', Role => {
+  let serverid = Role.guild.id;
+  let rolename = Role.name;
+  client.serverlogRoleCreated(serverid, rolename)
+  })
+
+  client.on('roleDelete', Role => {
+  let serverid = Role.guild.id;
+  let rolename = Role.name;
+  client.serverlogRoleDeleted(serverid, rolename)
+  })
+  
+  client.on('messageUpdate', (before, after) => {
+  let serverid = after.guild.id;
+  client.serverlogMessageEdited(serverid, before.content, after.content, after.author, after.channel, after.id);
+  })
 
   client.login(client.config.token);
 
