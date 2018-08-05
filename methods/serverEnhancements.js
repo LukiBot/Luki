@@ -25,5 +25,25 @@ exports.function = {
    created: created
   };
    //End of getGuildInfo(guildCollection)
+ },
+ kickBots: function (guild, userreason) {
+  //WARNING: THIS FUNCTION KICKS ALL BOTS FROM THE GUILD AND THIS ACTION IS IRREVERSIBLE
+  let failed = [];
+  let success = [];
+  let reason = userreason || 'No reason provided. (Mass Kick)';
+  let botAccounts = guild.members.filter(m => m.user.bot == true).map(bot => bot.id); // Array of bot id's.
+  botAccounts.forEach(bot => {
+    try {
+     await guild.member(bot).kick(reason);
+     success.push(bot)
+    } catch (error) {
+     failed.push(bot);
+    }
+   });
+  return {
+   failed: failed,
+   kicked: success
+  };
+  //End of kickBots(guild, reason)
  }
 }
