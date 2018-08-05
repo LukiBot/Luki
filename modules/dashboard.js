@@ -177,6 +177,8 @@ module.exports = (client) => {
         rankLevel = 3;
       } else if (client.config.premium.includes(req.user.id) === true) {
         rankLevel = 2;
+      } else if (client.config.trusted.includes(req.user.id) === true){
+        rankLevel = 1;
       } else {
         rankLevel = 0;
       }
@@ -198,6 +200,28 @@ module.exports = (client) => {
       }
       renderTemplate(res, req, "me.ejs", {userExp, userLevel, userTitle, userBio, userRank});
     })
+  });
+
+  app.post("/me", checkAuth, (req, res) => {
+    usersDB.get(`SELECT * FROM users WHERE id = ?`, [req.user.id], (err, row) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      if (!row) {
+        usersDB.run(`INSERT INTO users(id, title, bio) VALUES(?, ?, ?)`, [req.user.id, req.body.title, req.body.bio], function(err) {
+          if (err) {
+            return console.log(err.message);
+          }
+        });
+      } else {
+        usersDB.run(`UPDATE users SET title = ?, bio = ? WHERE id =? `, [req.body.title, req.body.bio, req.user.id], function(err) {
+          if (err) {
+            return console.error(err.message);
+          }    
+        });
+      }
+    });
+    res.redirect("/me");
   });
 
   app.get("/user", (req, res) => {
@@ -230,6 +254,8 @@ module.exports = (client) => {
         rankLevel = 3;
       } else if (client.config.premium.includes(req.params.userID) === true) {
         rankLevel = 2;
+      } else if (client.config.trusted.includes(req.params.userID) === true){
+        rankLevel = 1;
       } else {
         rankLevel = 0;
       }
