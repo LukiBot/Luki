@@ -178,7 +178,7 @@ module.exports = (client) => {
     res.redirect(`/`);
   });
 
-  app.get("/user/:usersID", (req, res) => {
+  app.get("/user/:userID", (req, res) => {
     const user = client.users.get(req.params.userID);   
     if (!user) return res.status(404);
     usersDB.get(`SELECT * FROM users WHERE id = ?`, [req.params.userID], (err, row) => {
@@ -197,7 +197,8 @@ module.exports = (client) => {
         userTitle = row.title
         userBio = row.bio
       }
-      renderTemplate(res, req, "user.ejs", {userLevel, userTitle, userBio});
+      var username = user.username
+      renderTemplate(res, req, "user.ejs", {userLevel, userTitle, userBio, username});
     })
   });
 
@@ -354,15 +355,6 @@ module.exports = (client) => {
     if (!isManaged && !req.session.isAdmin) res.redirect("/");
     await guild.leave();
     res.redirect("/dashboard");
-  });
-
-  app.get("/dashboard/:guildID/reset", checkAuth, async (req, res) => {
-    const guild = client.guilds.get(req.params.guildID);
-    if (!guild) return res.status(404);
-    const isManaged = guild && !!guild.member(req.user.id) ? guild.member(req.user.id).permissions.has("MANAGE_GUILD") : false;
-    if (!isManaged && !req.session.isAdmin) res.redirect("/");
-    client.settings.delete(guild.id);
-    res.redirect("/dashboard/"+req.params.guildID);
   });
   
   client.site = app.listen(client.config.dashboard.port);

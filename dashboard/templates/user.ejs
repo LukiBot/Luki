@@ -1,12 +1,12 @@
-<%- include('blocks/header', {bot, user, path}) %>
+    <%- include('blocks/header', {bot, user, path}) %>
   <div class="container">
       <div class="container">
         <div class="row justify-content-md-center">
-          <div class="col col-10"><h3><%= user.username %> Profile</h3>
+          <div class="col col-10"><h3><%= username %>'s Profile</h3>
           </div>
         </div>
-     <h6>level: <%= userLevel %></h6>
-     <h6>title: <%= userTitle %></h6>
-     <h6>bio: <%= userBio %></h6>
+     <h6><strong><%= username %>'s level:</strong> <%= userLevel %></h6>
+     <h6><strong><%= username %>'s title:</strong> <%= userTitle %></h6>
+     <h6><strong><%= username %>'s bio:</strong> <%= userBio %></h6>
     </div>
     <% include ./blocks/footer %>
