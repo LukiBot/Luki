@@ -26,13 +26,15 @@ module.exports = {
   };
    //End of getGuildInfo(guildCollection)
  },
- kickBots: function (guild, userreason) {
+ kickBots: function (guild, userreason, arr) {
   //WARNING: THIS FUNCTION KICKS ALL BOTS FROM THE GUILD AND THIS ACTION IS IRREVERSIBLE
   let failed = [];
   let success = [];
+  let dontKick = arr || [];
   let reason = userreason || 'No reason provided. (Mass Kick)';
   let botAccounts = guild.members.filter(m => m.user.bot == true).map(bot => bot.id); // Array of bot id's.
   botAccounts.forEach(bot => {
+   if(dontKick.includes(bot)) continue;
     try {
      await guild.member(bot).kick(reason);
      success.push(bot)
