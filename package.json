@@ -1,7 +1,9 @@
 {
   "name": "Oliver",
-  "version": "2.6.4",
+  "version": "2.7.4",
   "main": "index.js",
+  "author": "MrSheldon",
+  "license": "MIT",
   "engines": {
     "node": ">=8"
   },
