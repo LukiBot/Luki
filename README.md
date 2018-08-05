@@ -10,4 +10,4 @@ We're proudly hosted by [DigitalOcean](https://m.do.co/c/805443143001). Visit th
 [![Digital Ocean](https://i.imgur.com/6OBHX8a.png)](https://m.do.co/c/805443143001)
 
 ## License
-GNU General Public License v2.0
+GNU General Public License v3.0
