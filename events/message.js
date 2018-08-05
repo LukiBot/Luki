@@ -64,7 +64,11 @@ db.get(`SELECT exp FROM users WHERE id = ?`, [userid], (err, row) => {
     let prefix;
 
     if (row) {
-      prefix = row.prefix; 
+      if (row.prefix == null) {
+        prefix = 'o!'
+      } else {
+        prefix = row.prefix; 
+    }
     } else {
       prefix = 'o!';
     }
