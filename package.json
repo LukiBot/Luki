@@ -3,7 +3,7 @@
   "version": "2.7.4",
   "main": "index.js",
   "author": "MrSheldon",
-  "license": "GPL",
+  "license": "GPL-2.0",
   "engines": {
     "node": ">=8"
   },
