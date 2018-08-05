@@ -181,19 +181,22 @@ module.exports = (client) => {
         rankLevel = 0;
       }
       const userRank = client.config.permLevels.find(l => l.level === rankLevel).name;
+      let userExp
       let userLevel
       let userTitle
       let userBio
       if (!row) {
+        userExp = 1;
         userLevel = 1;
         userTitle = "No title was found";
         userBio = "No bio was found";
       } else {
+        userExp = row.exp
         userLevel = row.level
         userTitle = row.title
         userBio = row.bio
       }
-      renderTemplate(res, req, "me.ejs", {userLevel, userTitle, userBio, userRank});
+      renderTemplate(res, req, "me.ejs", {userExp, userLevel, userTitle, userBio, userRank});
     })
   });
 
@@ -231,20 +234,23 @@ module.exports = (client) => {
         rankLevel = 0;
       }
       const userRank = client.config.permLevels.find(l => l.level === rankLevel).name;
+      let userExp
       let userLevel
       let userTitle
       let userBio
       if (!row) {
+        userExp = 1;
         userLevel = 1;
         userTitle = "No title was found";
         userBio = "No bio was found";
       } else {
+        userExp = row.exp
         userLevel = row.level
         userTitle = row.title
         userBio = row.bio
       }
       var username = user.username
-      renderTemplate(res, req, "user.ejs", {userLevel, userTitle, userBio, username, userRank});
+      renderTemplate(res, req, "user.ejs", {userExp, userLevel, userTitle, userBio, username, userRank});
     })
   });
 
