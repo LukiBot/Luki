@@ -53,12 +53,25 @@ db.get(`SELECT exp FROM users WHERE id = ?`, [userid], (err, row) => {
 
  
 
+  if (!message.guild) return;
 
   const settings = message.settings = client.getGuildSettings(message.guild);
 
-  if (message.content.indexOf(settings.prefix) !== 0) return;
+  db2.get(`SELECT * FROM servers WHERE id = ?`, [message.guild.id], (err, row) => {
+    if (err) {
+       console.log(err.message)
+    }
+    let prefix;
 
-  const args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
+    if (row) {
+      prefix = row.prefix; 
+    } else {
+      prefix = 'o!';
+    }
+
+  if (message.content.indexOf(prefix) !== 0) return;
+
+  const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
 
   const level = client.permlevel(message);
@@ -88,4 +101,5 @@ db.get(`SELECT exp FROM users WHERE id = ?`, [userid], (err, row) => {
   }
   client.logger.cmd(`[CMD] ${client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`);
   cmd.run(client, message, args, level);
+});
 };
