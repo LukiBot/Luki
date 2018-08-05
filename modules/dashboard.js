@@ -158,6 +158,29 @@ module.exports = (client) => {
       if (err) {
         return console.error(err.message);
       }
+      let rankLevel
+      if (client.config.ldevelopers.includes(req.user.id) === true) {
+        rankLevel = 10;
+      } else if (client.config.developers.includes(req.user.id) === true) {
+        rankLevel = 9;
+      } else if (client.config.managers.includes(req.user.id) === true) {
+        rankLevel = 8;
+      } else if (client.config.hadmins.includes(req.user.id) === true) {
+        rankLevel = 7;
+      } else if (client.config.admins.includes(req.user.id) === true) {
+        rankLevel = 6;
+      } else if (client.config.hmods.includes(req.user.id) === true) {
+        rankLevel = 5;
+      } else if (client.config.mods.includes(req.user.id) === true) {
+        rankLevel = 4
+      } else if (client.config.premiump.includes(req.user.id) === true) {
+        rankLevel = 3;
+      } else if (client.config.premium.includes(req.user.id) === true) {
+        rankLevel = 2;
+      } else {
+        rankLevel = 0;
+      }
+      const userRank = client.config.permLevels.find(l => l.level === rankLevel).name;
       let userLevel
       let userTitle
       let userBio
@@ -170,7 +193,7 @@ module.exports = (client) => {
         userTitle = row.title
         userBio = row.bio
       }
-      renderTemplate(res, req, "me.ejs", {userLevel, userTitle, userBio});
+      renderTemplate(res, req, "me.ejs", {userLevel, userTitle, userBio, userRank});
     })
   });
 
@@ -185,6 +208,29 @@ module.exports = (client) => {
       if (err) {
         return console.error(err.message);
       }
+      let rankLevel
+      if (client.config.ldevelopers.includes(req.params.userID) === true) {
+        rankLevel = 10;
+      } else if (client.config.developers.includes(req.params.userID) === true) {
+        rankLevel = 9;
+      } else if (client.config.managers.includes(req.params.userID) === true) {
+        rankLevel = 8;
+      } else if (client.config.hadmins.includes(req.params.userID) === true) {
+        rankLevel = 7;
+      } else if (client.config.admins.includes(req.params.userID) === true) {
+        rankLevel = 6;
+      } else if (client.config.hmods.includes(req.params.userID) === true) {
+        rankLevel = 5;
+      } else if (client.config.mods.includes(req.params.userID) === true) {
+        rankLevel = 4
+      } else if (client.config.premiump.includes(req.params.userID) === true) {
+        rankLevel = 3;
+      } else if (client.config.premium.includes(req.params.userID) === true) {
+        rankLevel = 2;
+      } else {
+        rankLevel = 0;
+      }
+      const userRank = client.config.permLevels.find(l => l.level === rankLevel).name;
       let userLevel
       let userTitle
       let userBio
@@ -198,7 +244,7 @@ module.exports = (client) => {
         userBio = row.bio
       }
       var username = user.username
-      renderTemplate(res, req, "user.ejs", {userLevel, userTitle, userBio, username});
+      renderTemplate(res, req, "user.ejs", {userLevel, userTitle, userBio, username, userRank});
     })
   });
 
