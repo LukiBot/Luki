@@ -1,0 +1,18 @@
+<%- include('../blocks/header', {bot, user, path}) %>
+  <div class="container">
+      <div class="container">
+          <div class="col col-10"><h3>Your profile</h3>
+        </div>
+    </div>
+<form method="post">
+	<label for="title">Title</label><br /> 
+	<textarea name="title" maxlength="30" cols="30" rows="2" placeholder="No title was found"><%= userTitle %></textarea><br /> 
+	<label for="bio">Bio</label><br /> 
+  <textarea maxlength="60" name="bio" cols="30" rows="2" placeholder="No bio was found"><%= userBio %></textarea><br /> 
+  <button type="submit" class="btn btn-primary">Save Changes <i class="fa fa-fw fa-save" aria-hidden="true"></i></button>
+</form>
+<br>
+<h6><strong>Your exp:</strong> <%= userExp %></h6>
+<h6><strong>Your level:</strong> <%= userLevel %></h6>
+<h6><strong>Your rank:</strong> <%= userRank %></h6>
+<% include ../blocks/footer %>

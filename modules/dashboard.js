@@ -198,23 +198,27 @@ module.exports = (client) => {
         userTitle = row.title
         userBio = row.bio
       }
-      renderTemplate(res, req, "me.ejs", {userExp, userLevel, userTitle, userBio, userRank});
+      renderTemplate(res, req, "/user/me.ejs", {userExp, userLevel, userTitle, userBio, userRank});
     })
   });
 
   app.post("/me", checkAuth, (req, res) => {
+    let title = req.body.title;
+    let bio = req.body.bio;
+    if (!title) title = "No title was found"
+    if (!bio) bio = "No bio was found"
     usersDB.get(`SELECT * FROM users WHERE id = ?`, [req.user.id], (err, row) => {
       if (err) {
         return console.error(err.message);
       }
       if (!row) {
-        usersDB.run(`INSERT INTO users(id, title, bio) VALUES(?, ?, ?)`, [req.user.id, req.body.title, req.body.bio], function(err) {
+        usersDB.run(`INSERT INTO users(id, title, bio) VALUES(?, ?, ?)`, [req.user.id, title, bio], function(err) {
           if (err) {
             return console.log(err.message);
           }
         });
       } else {
-        usersDB.run(`UPDATE users SET title = ?, bio = ? WHERE id =? `, [req.body.title, req.body.bio, req.user.id], function(err) {
+        usersDB.run(`UPDATE users SET title = ?, bio = ? WHERE id =? `, [title, bio, req.user.id], function(err) {
           if (err) {
             return console.error(err.message);
           }    
@@ -225,7 +229,7 @@ module.exports = (client) => {
   });
 
   app.get("/user", (req, res) => {
-    res.redirect(`/`);
+    res.redirect(`/me`);
   });
 
   app.get("/user/:userID", (req, res) => {
@@ -276,7 +280,7 @@ module.exports = (client) => {
         userBio = row.bio
       }
       var username = user.username
-      renderTemplate(res, req, "user.ejs", {userExp, userLevel, userTitle, userBio, username, userRank});
+      renderTemplate(res, req, "/user/user.ejs", {userExp, userLevel, userTitle, userBio, username, userRank});
     })
   });
 

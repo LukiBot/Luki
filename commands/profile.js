@@ -20,25 +20,27 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     let rankLevel;
     if (client.config.ldevelopers.includes(userid) === true) {
         rankLevel = 10;
-    } else if (client.config.developers.includes(userid) === true) {
+      } else if (client.config.developers.includes(userid) === true) {
         rankLevel = 9;
-    } else if (client.config.managers.includes(userid) === true) {
+      } else if (client.config.managers.includes(userid) === true) {
         rankLevel = 8;
-    } else if (client.config.hadmins.includes(userid) === true) {
+      } else if (client.config.hadmins.includes(userid) === true) {
         rankLevel = 7;
-    } else if (client.config.admins.includes(userid) === true) {
+      } else if (client.config.admins.includes(userid) === true) {
         rankLevel = 6;
-    } else if (client.config.hmods.includes(userid) === true) {
+      } else if (client.config.hmods.includes(userid) === true) {
         rankLevel = 5;
-    } else if (client.config.mods.includes(userid) === true) {
+      } else if (client.config.mods.includes(userid) === true) {
         rankLevel = 4
-    } else if (client.config.premiump.includes(userid) === true) {
+      } else if (client.config.premiump.includes(userid) === true) {
         rankLevel = 3;
-    } else if (client.config.premium.includes(userid) === true) {
+      } else if (client.config.premium.includes(userid) === true) {
         rankLevel = 2;
-    } else {
+      } else if (client.config.trusted.includes(userid) === true){
+        rankLevel = 1;
+      } else {
         rankLevel = 0;
-    }
+      }
     const rank = client.config.permLevels.find(l => l.level === rankLevel).name;
 
     let badges;
