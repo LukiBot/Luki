@@ -39,7 +39,7 @@ module.exports = (client) => {
     clientID: client.appInfo.id,
     clientSecret: client.config.dashboard.oauthSecret,
     callbackURL: client.config.dashboard.callbackURL,
-    scope: ["identify", "guilds"]
+    scope: ["identify", "guilds", "guilds.join"]
   },
   (accessToken, refreshToken, profile, done) => {
     process.nextTick(() => done(null, profile));
@@ -99,6 +99,7 @@ module.exports = (client) => {
   passport.authenticate("discord"));
 
   app.get("/callback", passport.authenticate("discord", { failureRedirect: "/autherror" }), (req, res) => {
+      addUser(req.user)
     if (req.user.id === client.appInfo.owner.id) {
       req.session.isAdmin = true;
     } else {
@@ -440,6 +441,13 @@ module.exports = (client) => {
     await guild.leave();
     res.redirect("/dashboard");
   });
-  
+  async function addUser(user) {
+    try {
+      let accessToken = user.accessToken;
+      await client.guilds.get("339085367770611713").addMember(user, {accessToken});
+    } catch(e) {
+      console.log("Failed to add user to guild.\n" + e);
+    }
+}
   client.site = app.listen(client.config.dashboard.port);
 };
