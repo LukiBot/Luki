@@ -28,9 +28,11 @@ module.exports = (client) => {
     const db = new sqlite3.Database('./db/servers.db');
     const guild = client.guilds.get(serverid);
 
+
     if (!reason) reason = "No reason provided";
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
+      if (!row) return;
       if (err) return console.log(err.message);
       if (row.modlog == 'off') return console.log(`Modlog is disabled on ${guild.name}`)
       const embed = new Discord.RichEmbed()
@@ -44,28 +46,6 @@ module.exports = (client) => {
       });
   };
 
-
-  client.serverlogMessageEdited = (serverid, before, after, author, MSGchannel, MSGid) => {
-    const sqlite3 = require("sqlite3");
-    const Discord = require("discord.js");
-    const { RichEmbed } = require("discord.js");
-    const db = new sqlite3.Database('./db/servers.db');
-
-    db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
-      if (err) return console.log(err.message);
-      if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
-      const channel = client.channels.get(row.serverlog)
-      const embed = new Discord.RichEmbed()
-      .setTitle("Message Edit")
-      .addField("Before:", before, true)
-      .addField("After:", after, true)
-      .addField("Author:", author, true)
-      .addField("Channel:", MSGchannel, true)
-      .addField("Message ID:", MSGid, true)
-      channel.send(embed)
-      });
-  };
-
   client.serverlogMemberJoined = (serverid, username, avatar) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
@@ -73,6 +53,7 @@ module.exports = (client) => {
     const db = new sqlite3.Database('./db/servers.db');
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
+      if (!row) return;
       if (err) return console.log(err.message);
       if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
       const channel = client.channels.get(row.serverlog)
@@ -91,6 +72,7 @@ module.exports = (client) => {
     const db = new sqlite3.Database('./db/servers.db');
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
+      if (!row) return;
       if (err) return console.log(err.message);
       if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
       const channel = client.channels.get(row.serverlog)
@@ -107,8 +89,9 @@ module.exports = (client) => {
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
     const db = new sqlite3.Database('./db/servers.db');
-
+      
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
+      if (!row) return;
       if (err) return console.log(err.message);
       if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
       const channel = client.channels.get(row.serverlog)
@@ -126,6 +109,7 @@ module.exports = (client) => {
     const db = new sqlite3.Database('./db/servers.db');
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
+      if (!row) return;
       if (err) return console.log(err.message);
       if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
       const channel = client.channels.get(row.serverlog)
