@@ -1,4 +1,4 @@
-# Oliver [![Discord](https://discordapp.com/api/guilds/339085367770611713/embed.png)](https://discord.gg/76PAmCv) 
+# Luki [![Discord](https://discordapp.com/api/guilds/339085367770611713/embed.png)](https://discord.gg/76PAmCv) 
 
 The rewrite of Luki (still developed)
 
