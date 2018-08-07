@@ -4,12 +4,12 @@ const Discord = require('discord.js');
 
 
 exports.run = async (client, msg, args, level) => {
-  if (!['pc', 'xbl', 'psn'].includes(args[0])) return msg.channel.send('**Please Include valid platform**\n`o!fortnite pc/xbl/psn username`');
-  if (!args[1]) return msg.channel.send('**Please Include username**\n`o!fortnite pc/xbl/psn username`');
+  if (!['pc', 'xbl', 'psn'].includes(args[0])) return msg.channel.send('**Please Include valid platform**\n`l.fortnite pc/xbl/psn username`');
+  if (!args[1]) return msg.channel.send('**Please Include username**\n`l.fortnite pc/xbl/psn username`');
      var platform = args[0].toLowerCase(); 
      var playerName = args[1];
      fortnite.user(playerName, platform).then(data => {
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
       .setTitle(`${data.username} - ${data.platform}`)
       .addField("Solo", `**Wins:** \`${data.stats.solo.wins}\`\n**Kills:** \`${data.stats.solo.kills}\`\n**Matches Played:** \`${data.stats.solo.matches}\``)
       .addField("Due", `**Wins:** \`${data.stats.solo.wins}\`\n**Kills:** \`${data.stats.solo.kills}\`\n**Matches Played:** \`${data.stats.solo.matches}\``)

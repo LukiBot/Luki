@@ -19,7 +19,7 @@ exports.run = (client, message, args, level) => {
       description: output,
       footer: {
         icon_url: client.user.avatarURL,
-        text: "Oliver | Discord bot made by MrSheldon#0001"
+        text: "Luki | Discord bot made by MrSheldon#0001"
       }
     }})
   } else {

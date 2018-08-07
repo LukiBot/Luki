@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./db/users.db')
-const { RichEmbed } = require("discord.js");
+const db = new sqlite3.Database('./database/users.db')
+const { MessageEmbed } = require("discord.js");
 const Discord = require("discord.js");
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
@@ -76,7 +76,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             });
             return;
         } else {
-            const embed = new Discord.RichEmbed()
+            const embed = new Discord.MessageEmbed()
                 .setThumbnail(user.avatarURL)
                 .setAuthor(`${username}'s Profile`, user.avatarURL)
                 .setTitle(badges)

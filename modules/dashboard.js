@@ -18,8 +18,8 @@ const helmet = require("helmet");
 const md = require("marked");
 
 const sql = require('sqlite3');
-const serversDB = new sql.Database(process.cwd() + "/db/servers.db")
-const usersDB = new sql.Database(process.cwd() + "/db/users.db")
+const serversDB = new sql.Database(process.cwd() + "/database/servers.db")
+const usersDB = new sql.Database(process.cwd() + "/database/users.db")
 
 module.exports = (client) => {
 
@@ -150,7 +150,7 @@ module.exports = (client) => {
   });
 
   app.get("/dashboard", checkAuth, (req, res) => {
-    const perms = Discord.EvaluatedPermissions;
+    const perms = Discord.Permissions;
     renderTemplate(res, req, "dashboard.ejs", {perms});
   });
 
@@ -307,7 +307,7 @@ module.exports = (client) => {
         levelValue = 0;
         modLogChannel = 'off';
         serverLogChannel = 'off';
-        prefix = 'o!';
+        prefix = 'l.';
       } else {
         if (row.modlog == '') {
           modLogChannel = 'off'
@@ -367,72 +367,7 @@ module.exports = (client) => {
     });
     res.redirect("/dashboard/"+req.params.guildID+"/manage");
   });
-  
-
-  app.get("/dashboard/:guildID/members", checkAuth, async (req, res) => {
-    const guild = client.guilds.get(req.params.guildID);
-    if (!guild) return res.status(404);
-    renderTemplate(res, req, "guild/members.ejs", {
-      guild: guild,
-      members: guild.members.array()
-    });
-  });
-
-  app.get("/dashboard/:guildID/members/list", checkAuth, async (req, res) => {
-    const guild = client.guilds.get(req.params.guildID);
-    if (!guild) return res.status(404);
-    if (req.query.fetch) {
-      await guild.fetchMembers();
-    }
-    const totals = guild.members.size;
-    const start = parseInt(req.query.start, 10) || 0;
-    const limit = parseInt(req.query.limit, 10) || 50;
-    let members = guild.members;
     
-    if (req.query.filter && req.query.filter !== "null") {
-      members = members.filter(m=> {
-        m = req.query.filterUser ? m.user : m;
-        return m["displayName"].toLowerCase().includes(req.query.filter.toLowerCase());
-      });
-    }
-    
-    if (req.query.sortby) {
-      members = members.sort((a, b) => a[req.query.sortby] > b[req.query.sortby]);
-    }
-    const memberArray = members.array().slice(start, start+limit);
-    
-    const returnObject = [];
-    for (let i = 0; i < memberArray.length; i++) {
-      const m = memberArray[i];
-      returnObject.push({
-        id: m.id,
-        status: m.user.presence.status,
-        bot: m.user.bot,
-        username: m.user.username,
-        displayName: m.displayName,
-        tag: m.user.tag,
-        discriminator: m.user.discriminator,
-        joinedAt: m.joinedTimestamp,
-        createdAt: m.user.createdTimestamp,
-        highestRole: {
-          hexColor: m.highestRole.hexColor
-        },
-        memberFor: moment.duration(Date.now() - m.joinedAt).format(" D [days], H [hrs], m [mins], s [secs]"),
-        roles: m.roles.map(r=>({
-          name: r.name,
-          id: r.id,
-          hexColor: r.hexColor
-        }))
-      });
-    }
-    res.json({
-      total: totals,
-      page: (start/limit)+1,
-      pageof: Math.ceil(members.size / limit),
-      members: returnObject
-    });
-  });
-  
   app.get("/dashboard/:guildID/leave", checkAuth, async (req, res) => {
     const guild = client.guilds.get(req.params.guildID);
     if (!guild) return res.status(404);

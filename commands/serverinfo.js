@@ -24,7 +24,7 @@ exports.run = async (client, msg, args, level) => {
         "hongkong": ":flag_hk: Hong Kong",
         "russia": ":flag_ru: Russia"
     };
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
         .setAuthor(msg.guild.name, msg.guild.iconURL)
         .addField("Name", msg.guild.name, true)
         .addField("ID", msg.guild.id, true)

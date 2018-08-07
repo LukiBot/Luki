@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./db/users.db')
+const db = new sqlite3.Database('./database/users.db')
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
   if (message.mentions.users.size > 0) {

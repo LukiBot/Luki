@@ -15,9 +15,11 @@ module.exports = async client => {
 
   require("../modules/dashboard")(client);  
 
-  client.user.setActivity(`${client.guilds.size} Guilds | o!help`, {
-    type: "STREAMING",
-    url: "https://www.twitch.tv/discordapp"
-  });
   client.log("log", `${client.user.tag}, ready to serve ${client.users.size} users in ${client.guilds.size} servers.`, "Ready!");
+
+  
+    client.user.setActivity(`${client.guilds.size} Guilds | Luki.xyz`, {
+      type: "STREAMING",
+      url: "https://www.twitch.tv/discordapp"
+    });
 };

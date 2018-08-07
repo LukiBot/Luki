@@ -6,7 +6,10 @@ const readdir = promisify(require("fs").readdir);
 const Enmap = require("enmap");
 const EnmapLevel = require("enmap-level");
 
-const client = new Discord.Client({ autoReconnect: true });
+const client = new Discord.Client({ 
+  autoReconnect: true,
+  shardCount: "auto"
+ });
 
 client.config = require("./config.js");
 
@@ -52,33 +55,6 @@ const init = async () => {
     const thisLevel = client.config.permLevels[i];
     client.levelCache[thisLevel.name] = thisLevel.level;
   }
-
-/*  client.on('guildMemberAdd', Member => {
-  let serverid = Member.guild.id;
-  let username = Member.user.tag;
-  let avatar = Member.user.avatarURL
-  client.serverlogMemberJoined(serverid, username, avatar)
-
-  })
-
-  client.on('guildMemberRemove', Member => {
-  let serverid = Member.guild.id;
-  let username = Member.user.tag;
-  let avatar = Member.user.avatarURL
-  client.serverlogMemberLeft(serverid, username, avatar)
-  })
-
-  client.on('roleCreate', Role => {
-  let serverid = Role.guild.id;
-  let rolename = Role.name;
-  client.serverlogRoleCreated(serverid, rolename)
-  })
-
-  client.on('roleDelete', Role => {
-  let serverid = Role.guild.id;
-  let rolename = Role.name;
-  client.serverlogRoleDeleted(serverid, rolename)
-  }) */
 
   client.on('error', (error) => {
   console.log(error)

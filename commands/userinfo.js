@@ -1,4 +1,4 @@
-const { RichEmbed } = require("discord.js");
+const { MessageEmbed} = require("discord.js");
 const Discord = require("discord.js")
 const moment = require("moment");
 
@@ -16,7 +16,7 @@ exports.run = async (client, msg, args, level) => { // eslint-disable-line no-un
         user = msg.author;
     }
     const member = msg.guild.member(user);
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
     .setThumbnail(user.avatarURL)
     .setTitle(`${user.username}#${user.discriminator}`)
     .addField("ID:", `${user.id}`, true)

@@ -62,7 +62,6 @@
               border-radius: 50%;
             }
             </style>
-      <%- include('../blocks/guild-nav.ejs', {active: "manage", guild}) %>
       <form method="post">
         <ul class="list-group list-group-flush">
           <li class="list-group-item" style="padding: 0;">
@@ -73,7 +72,7 @@
         <label for="serverlog">Prefix</label>
         <br>
       <div class="form-group">
-        <input maxlength=3 name="prefix" placeholder="o!" class="form-control" value="<%= prefix %>" required>
+        <input maxlength=3 name="prefix" placeholder="l." class="form-control" value="<%= prefix %>" required>
       </div>
         <br>
      <label for="levels">Leveling System</label>
@@ -114,7 +113,7 @@
             <% } %>
       </select>
     </div>
-    <label for="serverlog">Server-Log</label>
+    <label for="serverlog">Server-Log (Not Functional)</label>
     <br>
   <div class="form-group">
     <select style="width: 100px;" name="serverlog" class="form-control">

@@ -25,7 +25,7 @@ module.exports = (client) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
-    const db = new sqlite3.Database('./db/servers.db');
+    const db = new sqlite3.Database('./database/servers.db');
     const guild = client.guilds.get(serverid);
 
 
@@ -50,7 +50,7 @@ module.exports = (client) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
-    const db = new sqlite3.Database('./db/servers.db');
+    const db = new sqlite3.Database('./database/servers.db');
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (!row) return;
@@ -69,7 +69,7 @@ module.exports = (client) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
-    const db = new sqlite3.Database('./db/servers.db');
+    const db = new sqlite3.Database('./database/servers.db');
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (!row) return;
@@ -88,7 +88,7 @@ module.exports = (client) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
-    const db = new sqlite3.Database('./db/servers.db');
+    const db = new sqlite3.Database('./database/servers.db');
       
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (!row) return;
@@ -106,7 +106,7 @@ module.exports = (client) => {
     const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
     const { RichEmbed } = require("discord.js");
-    const db = new sqlite3.Database('./db/servers.db');
+    const db = new sqlite3.Database('./database/servers.db');
 
     db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (!row) return;

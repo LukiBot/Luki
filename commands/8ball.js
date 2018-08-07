@@ -1,4 +1,4 @@
-const { RichEmbed } = require("discord.js");
+const { MessageEmbed} = require("discord.js");
 const Discord = require("discord.js")
 function randomIntInc(low, high) {
     return Math.floor(Math.random() * (high - low + 1) + low);
@@ -29,7 +29,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
     let question = args.slice().join(" ");
 
-    let embedz = new Discord.RichEmbed()
+    let embedz = new Discord.MessageEmbed()
         .setAuthor(message.author.username + " asks: " + question)
         .addField("Answer", replies[result] + "")
 

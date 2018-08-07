@@ -1,4 +1,4 @@
-const { RichEmbed } = require("discord.js");
+const { MessageEmbed} = require("discord.js");
 const Discord = require("discord.js")
 const urban = require('relevant-urban')
 
@@ -8,7 +8,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     let res = await urban(args.join(' ')).catch(e => { 
     return message.channel.send('***Sorry, that word was not found!***');
   });
-  const embed = new Discord.RichEmbed()
+  const embed = new Discord.MessageEmbed()
   .setTitle(res.word)
   .setDescription(`**Definition:**\n*${res.definition}*\n\n**Example:**\n*${res.example}*`) 
   .addField('Author', res.author, true) 

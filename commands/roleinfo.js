@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const superagent = require("superagent");
 
 exports.run = async (client, msg, args, level) => { 
-    if (!args[0]) return msg.channel.send("Please specific role name\n`o!roleinfo ROLE_NAME`")
+    if (!args[0]) return msg.channel.send("Please specific role name\n`l.roleinfo ROLE_NAME`")
 
     var rolename = msg.content.split(" ").slice(1).join(" ");
     let role = msg.guild.roles.find("name", `${rolename}`)
@@ -15,7 +15,7 @@ exports.run = async (client, msg, args, level) => {
         return days + (days == 1 ? " day" : " days") + " ago";
     };
 
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
         .setColor(role.hexColor)
         .addField('ID', role.id, true)
         .addField('Member count', role.members.size, true)

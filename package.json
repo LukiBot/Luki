@@ -1,33 +1,11 @@
 {
-  "name": "Oliver",
-  "version": "3.0.0-dev",
-  "description": "The LukiBot rewirte testing bot",
+  "name": "Luki",
+  "version": "3.0.0",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LukiBot/Oliver.git"
-  },
-  "keywords": [
-    "discord",
-    "api",
-    "bot",
-    "nodejs",
-    "node",
-    "discordapp"
-  ],
-  "author": "MrSheldon <root@mrsheldon.me>",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/LukiBot/Oliver/issues"
-  },
-  "homepage": "https://github.com/LukiBot/Oliver#readme",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=8"
   },
-   "dependencies": {
+  "dependencies": {
     "bfd-api": "^0.2.6",
     "bfd.js": "^3.4.3",
     "bindings": "^1.3.0",
