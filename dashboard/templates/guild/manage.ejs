@@ -139,6 +139,50 @@
         <% } %>
     </select>
   </div>
+  <label for="welcomelog">Welcome-Log</label>
+<div class="form-group">
+  <select style="width: 100px;" name="welcomelog" class="form-control">
+    <% if (welcomeLog == 'off'){ %>
+      <option selected value="off">Off</option>
+      <% 
+      guild.channels.forEach(channel => {
+          if (channel.type != 'text') return;
+        %>
+        <option value="<%= channel.id %>">#<%= channel.name %></option>
+        <% }); %>  
+      <% } %>
+      <% if (welcomeLog != 'off'){ %>
+      <option value="off">Off</option>
+      <% 
+      guild.channels.forEach(channel => {
+          if (channel.type != 'text') return;
+          if (channel.id == welcomeLog){ %>
+          <option selected value="<%= channel.id %>">#<%= channel.name %></option>
+        <% } %>
+        <option value="<%= channel.id %>">#<%= channel.name %></option>
+        <% }); %>  
+      <% } %>
+  </select>
+</div>
+<% if (welcomeLog != 'off') { %>
+<label for="welcomemessage">Welcome Message</label>
+<br>
+<div class="form-group">
+<input maxlength=2499 name="welcomemessage" placeholder="Welcome {user.mention} to {server.name}!" class="form-control" value="<%= welcomeMessage %>">
+</div>
+<label for="leavemessage">Leave Message</label>
+<br>
+<div class="form-group">
+<input maxlength=2499 name="leavemessage" placeholder="{user.name} has left {server.name}!" class="form-control" value="<%= leaveMessage %>">
+</div>
+<br>
+<label>Variables</label>
+<code>
+{user.mention}
+{user.name}
+{server.name}
+</code>
+<% } %>
         <div style="width: 100%; text-align: right; margin-top: 20px;">
           <button type="submit" class="btn btn-primary">Save Changes <i class="fa fa-fw fa-save" aria-hidden="true"></i></button>
         </div>

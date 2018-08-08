@@ -302,12 +302,18 @@ module.exports = (client) => {
       let levelValue; 
       let modLogChannel;
       let serverLogChannel;
+      let welcomeLog;
+      let welcomeMessage;
+      let leaveMessage;
       let prefix;
       if (!row) {
         levelValue = 0;
         modLogChannel = 'off';
         serverLogChannel = 'off';
+        welcomeLog = 'off';
         prefix = 'l.';
+        welcomeMessage = '';
+        leaveMessage = '';
       } else {
         if (row.modlog == '') {
           modLogChannel = 'off'
@@ -319,11 +325,18 @@ module.exports = (client) => {
         } else {
           serverLogChannel = row.serverlog
         }
+        if (row.welcomeLog == '') {
+          welcomeLog = 'off'
+        } else {
+          welcomeLog = row.welcomeLog
+        }
         prefix = row.prefix;
         levelValue = row.leveling;
+        welcomeMessage = row.welcomeMessage
+        leaveMessage = row.leaveMessage
       }
 
-    renderTemplate(res, req, "guild/manage.ejs", {guild, levelValue, modLogChannel, serverLogChannel, prefix});
+    renderTemplate(res, req, "guild/manage.ejs", {guild, levelValue, modLogChannel, serverLogChannel, prefix, welcomeLog, welcomeMessage, leaveMessage});
     })
   });
 
@@ -347,7 +360,7 @@ module.exports = (client) => {
       }
 
       if (!row) {
-        serversDB.run(`INSERT INTO servers(id, leveling, modlog, serverlog, prefix) VALUES(?, ?, ?, ?, ?)`, [req.params.guildID, value, req.body.modlog, req.body.serverlog, req.body.prefix], function(err) {
+        serversDB.run(`INSERT INTO servers(id, leveling, modlog, serverlog, prefix, welcomeLog, welcomeMessage, leaveMessage) VALUES(?, ?, ?, ?, ?, ?, ?, ?)`, [req.params.guildID, value, req.body.modlog, req.body.serverlog, req.body.prefix, req.body.welcomelog, req.body.welcomemessage, req.body.leavemessage], function(err) {
           if (err) {
             return console.log(err.message);
           }
@@ -355,7 +368,7 @@ module.exports = (client) => {
         });
 
       } else {
-        serversDB.run(`UPDATE servers SET leveling = ?, modlog = ?, serverlog = ?, prefix = ? WHERE id =? `, [value,  req.body.modlog, req.body.serverlog, req.body.prefix, req.params.guildID], function(err) {
+        serversDB.run(`UPDATE servers SET leveling = ?, modlog = ?, serverlog = ?, prefix = ?, welcomeLog = ?, welcomeMessage = ?, leaveMessage = ? WHERE id =? `, [value,  req.body.modlog, req.body.serverlog, req.body.prefix, req.body.welcomelog, req.body.welcomemessage, req.body.leavemessage, req.params.guildID], function(err) {
           if (err) {
             return console.error(err.message);
           }

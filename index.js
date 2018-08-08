@@ -8,7 +8,7 @@ const EnmapLevel = require("enmap-level");
 
 const client = new Discord.Client({ 
   autoReconnect: true,
-  shardCount: "auto"
+  shardCount: 1
  });
 
 client.config = require("./config.js");
@@ -21,6 +21,9 @@ client.commands = new Enmap();
 client.aliases = new Enmap();
 
 client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
+
+const sql = require('sqlite3');
+const serversDB = new sql.Database(process.cwd() + "/database/servers.db")
 
 const init = async () => {
 
@@ -49,7 +52,43 @@ const init = async () => {
     }
   });
 
+client.on('guildMemberAdd', async (member) => {
 
+  serversDB.get(`SELECT * FROM servers WHERE id = ?`, [member.guild.id], (err, row) => {
+    if (err) return console.log(err.message);
+    if (!row) return;
+    if (row.welcomeLog == null) return;
+    if (row.welcomeLog == 'off') return;
+    if (row.welcomeMessage == '') return;
+    if (row.welcomeMessage == null) return;
+    const channel = client.channels.get(row.welcomeLog)
+    if (!channel) return;
+    const welcomeMessage = row.welcomeMessage
+    .replace("{user.name}", member.user.username)
+    .replace("{user.mention}", "<@" + member.user.id + ">")
+    .replace("{server.name}", member.guild.name);
+    channel.send(welcomeMessage) 
+  })
+})
+
+client.on('guildMemberRemove', async (member) => {
+
+  serversDB.get(`SELECT * FROM servers WHERE id = ?`, [member.guild.id], (err, row) => {
+    if (err) return console.log(err.message);
+    if (!row) return;
+    if (row.welcomeLog == null) return;
+    if (row.welcomeLog == 'off') return;
+    if (row.leaveMessage == '') return;
+    if (row.leaveMessage == null) return;
+    const channel = client.channels.get(row.welcomeLog)
+    if (!channel) return;
+    const leaveMessage = row.leaveMessage
+    .replace("{user.name}", member.user.username)
+    .replace("{user.mention}", "<@" + member.user.id + ">")
+    .replace("{server.name}", member.guild.name);
+    channel.send(leaveMessage) 
+  })
+})
   client.levelCache = {};
   for (let i = 0; i < client.config.permLevels.length; i++) {
     const thisLevel = client.config.permLevels[i];
