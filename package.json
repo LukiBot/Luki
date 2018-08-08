@@ -1,6 +1,7 @@
 {
   "name": "luki",
-  "description": "Luki is an easy-to-use bot with commands that can be used for fun, moderation, games, and more!"
+  "description": "Luki is an easy-to-use bot with commands that can be used for fun, moderation, games, and more!",
+  "version": "3.0.0-dev",
   "main": "index.js",
   "author": "MrSheldon <mrsheldon@luki.xyz> (https://mrsheldon.me)",
   "license": "GPL-3.0",
@@ -44,6 +45,6 @@
     "ytdl-core": "^0.20.4"
   },
   "scripts": {
-    "start": "forever index.js"
-  },
+    "start": "node index.js"
+  }
 }
