@@ -1,6 +1,6 @@
 {
-  "name": "Luki",
-  "version": "3.0.0",
+  "name": "luki",
+  "version": "3.0.0-dev",
   "main": "index.js",
   "engines": {
     "node": ">=8"

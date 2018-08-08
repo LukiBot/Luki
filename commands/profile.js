@@ -77,8 +77,8 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             return;
         } else {
             const embed = new Discord.MessageEmbed()
-                .setThumbnail(user.avatarURL)
-                .setAuthor(`${username}'s Profile`, user.avatarURL)
+                .setThumbnail(user.avatarURL())
+                .setAuthor(`${username}'s Profile`, user.avatarURL())
                 .setTitle(badges)
                 .setDescription(row.title)
                 .addField("Level:", row.level, true)

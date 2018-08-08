@@ -13,13 +13,13 @@
   <meta name="twitter:card" value="summary" />
   <meta name="twitter:title" content="Luki - Dashboard" />
   <meta name="twitter:description" content="Luki is an easy-to-use bot with commands that can be used for fun, moderation, games, and more!" />
-  <meta name="twitter:image" content='<%= bot.user.avatarURL %>'>
+  <meta name="twitter:image" content='<%= bot.user.avatarURL() %>'>
   <meta name="theme-color" content="#551A8B">
   <meta property="og:site_name" value="dashboard.luki.xyz">
   <meta property="og:title" content="Luki - Dashboard" />
   <meta property="og:url" content="https://dashboard.luki.xyz" />
   <meta property="og:description" content="Luki is an easy-to-use bot with commands that can be used for fun, moderation, games, and more!" />
-  <meta property="og:image" content='<%= bot.user.avatarURL %>' />
+  <meta property="og:image" content='<%= bot.user.avatarURL() %>' />
 
   <!-- Bootstrap CSS -->
   <link href="https://bootswatch.com/4/cyborg/bootstrap.min.css" rel="stylesheet" />
@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="/public/dashboard.css" />
   <script src="https://cdn.datatables.net/v/bs4/dt-1.10.16/cr-1.4.1/r-2.2.0/datatables.min.js"></script>
   <link rel='icon' href='<%= bot.user.avatarURL %>'>
-  <link rel="shortcut icon" href='<%= bot.user.avatarURL %>'>
+  <link rel="shortcut icon" href='<%= bot.user.avatarURL() %>'>
   <title>
     <%= bot.user.username %> - Dashboard
   </title>

@@ -17,7 +17,7 @@ exports.run = async (client, msg, args, level) => { // eslint-disable-line no-un
     }
     const member = msg.guild.member(user);
     const embed = new Discord.MessageEmbed()
-    .setThumbnail(user.avatarURL)
+    .setThumbnail(user.avatarURL())
     .setTitle(`${user.username}#${user.discriminator}`)
     .addField("ID:", `${user.id}`, true)
     .addField("Nickname:", `${member.nickname !== null ? `${member.nickname}` : 'None'}`, true)

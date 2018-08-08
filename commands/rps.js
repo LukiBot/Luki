@@ -17,6 +17,6 @@ exports.conf = {
 exports.help = {
   name: "rps",
   category: "Fun",
-  description: "Nice RPS game with Derpy",
+  description: "Nice RPS game with Luki",
   usage: "rps"
 };

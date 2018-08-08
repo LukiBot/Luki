@@ -18,7 +18,7 @@ exports.run = (client, message, args, level) => {
       message.channel.send({embed: {
       description: output,
       footer: {
-        icon_url: client.user.avatarURL,
+        icon_url: client.user.avatarURL(),
         text: "Luki | Discord bot made by MrSheldon#0001"
       }
     }})
