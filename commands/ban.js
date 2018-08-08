@@ -3,9 +3,11 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         let member = message.mentions.members.first();
     if(!member)
       return message.reply("Please mention a valid member of this server");
-    if(!member.bannable) 
+    if (member.user.id == message.author.id)
+      return message.reply("You cannot ban yourself!");
+    if(!member.bannable || member.highestRole.position >= message.member.highestRole.position) 
       return message.reply("I cannot ban this user! Do they have a higher role? Do I have ban permissions?");
-
+    
     let reason = args.slice(1).join(' ');
     if(!reason) reason = "No reason provided";
     

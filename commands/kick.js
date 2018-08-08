@@ -3,7 +3,9 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         let member = message.mentions.members.first() || message.guild.members.get(args[0]);
     if(!member)
       return message.reply("Please mention a valid member of this server");
-    if(!member.kickable) 
+    if (member.user.id == message.author.id)
+      return message.channel.send("You cannot kick yourself!");
+    if(!member.kickable || member.highestRole.position >= message.member.highestRole.position) 
       return message.reply("I cannot kick this user! Do they have a higher role? Do I have kick permissions?");
     let reason = args.slice(1).join(' ');
     if(!reason) reason = "No reason provided";
