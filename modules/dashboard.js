@@ -306,6 +306,7 @@ module.exports = (client) => {
       let welcomeMessage;
       let leaveMessage;
       let prefix;
+      let joinRole;
       if (!row) {
         levelValue = 0;
         modLogChannel = 'off';
@@ -314,6 +315,7 @@ module.exports = (client) => {
         prefix = 'l.';
         welcomeMessage = '';
         leaveMessage = '';
+        joinRole = 'off';
       } else {
         if (row.modlog == '') {
           modLogChannel = 'off'
@@ -330,13 +332,18 @@ module.exports = (client) => {
         } else {
           welcomeLog = row.welcomeLog
         }
+        if (row.joinRole == '') {
+          joinRole = 'off'
+        } else {
+          joinRole = row.joinRole
+        }
         prefix = row.prefix;
         levelValue = row.leveling;
         welcomeMessage = row.welcomeMessage
         leaveMessage = row.leaveMessage
       }
 
-    renderTemplate(res, req, "guild/manage.ejs", {guild, levelValue, modLogChannel, serverLogChannel, prefix, welcomeLog, welcomeMessage, leaveMessage});
+    renderTemplate(res, req, "guild/manage.ejs", {guild, levelValue, modLogChannel, serverLogChannel, prefix, welcomeLog, welcomeMessage, leaveMessage, joinRole});
     })
   });
 
@@ -360,7 +367,7 @@ module.exports = (client) => {
       }
 
       if (!row) {
-        serversDB.run(`INSERT INTO servers(id, leveling, modlog, serverlog, prefix, welcomeLog, welcomeMessage, leaveMessage) VALUES(?, ?, ?, ?, ?, ?, ?, ?)`, [req.params.guildID, value, req.body.modlog, req.body.serverlog, req.body.prefix, req.body.welcomelog, req.body.welcomemessage, req.body.leavemessage], function(err) {
+        serversDB.run(`INSERT INTO servers(id, leveling, modlog, serverlog, prefix, welcomeLog, welcomeMessage, leaveMessage, joinRole) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`, [req.params.guildID, value, req.body.modlog, req.body.serverlog, req.body.prefix, req.body.welcomelog, req.body.welcomemessage, req.body.leavemessage. req.body.joinrole], function(err) {
           if (err) {
             return console.log(err.message);
           }
@@ -368,7 +375,7 @@ module.exports = (client) => {
         });
 
       } else {
-        serversDB.run(`UPDATE servers SET leveling = ?, modlog = ?, serverlog = ?, prefix = ?, welcomeLog = ?, welcomeMessage = ?, leaveMessage = ? WHERE id =? `, [value,  req.body.modlog, req.body.serverlog, req.body.prefix, req.body.welcomelog, req.body.welcomemessage, req.body.leavemessage, req.params.guildID], function(err) {
+        serversDB.run(`UPDATE servers SET leveling = ?, modlog = ?, serverlog = ?, prefix = ?, welcomeLog = ?, welcomeMessage = ?, leaveMessage = ?, joinRole = ? WHERE id =? `, [value,  req.body.modlog, req.body.serverlog, req.body.prefix, req.body.welcomelog, req.body.welcomemessage, req.body.leavemessage, req.body.joinrole, req.params.guildID], function(err) {
           if (err) {
             return console.error(err.message);
           }
