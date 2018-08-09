@@ -8,7 +8,7 @@ const EnmapLevel = require("enmap-level");
 
 const client = new Discord.Client({ 
   autoReconnect: true,
-  shardCount: 1
+  shardCount: "auto"
  });
 
 client.config = require("./config.js");
