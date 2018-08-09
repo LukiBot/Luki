@@ -8,7 +8,7 @@ const EnmapLevel = require("enmap-level");
 
 const client = new Discord.Client({ 
   autoReconnect: true,
-  shardCount: "auto"
+  shardCount: 1
  });
 
 client.config = require("./config.js");
@@ -67,7 +67,11 @@ client.on('guildMemberAdd', async (member) => {
     .replace("{user.name}", member.user.username)
     .replace("{user.mention}", "<@" + member.user.id + ">")
     .replace("{server.name}", member.guild.name);
-    channel.send(welcomeMessage) 
+    channel.send(welcomeMessage)
+    if (row.joinRole == null) return;
+    if (row.joinRole == 'off') return;
+    if (!member.guild.roles.get(row.joinRole)) return;
+    member.addRole(row.joinRole).catch(e => console.error("Failed to add role to " + member.user.username + " in guild " + member.guild.name))
   })
 })
 
