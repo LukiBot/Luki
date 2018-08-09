@@ -18,6 +18,7 @@ We love contributors because they make this project even better with their uniqu
 
 ### Useful Resources
 [**Discord.js Docs**](https://discord.js.org/#/docs/main/internal-sharding/general/welcome)
+
 [**Discord.js v12.0.0 change-logs**](https://cdn.discordapp.com/attachments/223867697312694272/472138629184225300/screencapture-github-discordjs-discord-js-releases-2018-07-26-16_25_23.png)
 
 ### Basic Empty Command Example
