@@ -53,7 +53,6 @@ const init = async () => {
   });
 
 client.on('guildMemberAdd', async (member) => {
-
   serversDB.get(`SELECT * FROM servers WHERE id = ?`, [member.guild.id], (err, row) => {
     if (err) return console.log(err.message);
     if (!row) return;
@@ -66,12 +65,20 @@ client.on('guildMemberAdd', async (member) => {
     const welcomeMessage = row.welcomeMessage
     .replace("{user.name}", member.user.username)
     .replace("{user.mention}", "<@" + member.user.id + ">")
+    .replace("{member.count}", member.guild.memberCount)
     .replace("{server.name}", member.guild.name);
     channel.send(welcomeMessage)
+  })
+})
+
+client.on('guildMemberAdd', async (member) => {
+  serversDB.get(`SELECT * FROM servers WHERE id = ?`, [member.guild.id], (err, row) => {
+    if (err) return console.log(err.message);
+    if (!row) return;
     if (row.joinRole == null) return;
     if (row.joinRole == 'off') return;
     if (!member.guild.roles.get(row.joinRole)) return;
-    member.addRole(row.joinRole).catch(e => console.error("Failed to add role to " + member.user.username + " in guild " + member.guild.name))
+    member.roles.add(row.joinRole).catch(e => console.error("Failed to add role to " + member.user.username + " in guild " + member.guild.name)) 
   })
 })
 
@@ -89,6 +96,7 @@ client.on('guildMemberRemove', async (member) => {
     const leaveMessage = row.leaveMessage
     .replace("{user.name}", member.user.username)
     .replace("{user.mention}", "<@" + member.user.id + ">")
+    .replace("{member.count}", member.guild.memberCount)
     .replace("{server.name}", member.guild.name);
     channel.send(leaveMessage) 
   })

@@ -1,5 +1,4 @@
 <%- include('../blocks/header', {bot, user, path}) %>
-  <h2>Server Management</h2>
   <div class="row">
     <div class="col col-4">
       <%- include('../blocks/guild-card', {guild, levelValue, modLogChannel, serverLogChannel}) %>
@@ -139,33 +138,7 @@
         <% } %>
     </select>
   </div>
-  <label for="welcomelog">Welcome-Log</label>
-<div class="form-group">
-  <select style="width: 100px;" name="welcomelog" class="form-control">
-    <% if (welcomeLog == 'off'){ %>
-      <option selected value="off">Off</option>
-      <% 
-      guild.channels.forEach(channel => {
-          if (channel.type != 'text') return;
-        %>
-        <option value="<%= channel.id %>">#<%= channel.name %></option>
-        <% }); %>  
-      <% } %>
-      <% if (welcomeLog != 'off'){ %>
-      <option value="off">Off</option>
-      <% 
-      guild.channels.forEach(channel => {
-          if (channel.type != 'text') return;
-          if (channel.id == welcomeLog){ %>
-          <option selected value="<%= channel.id %>">#<%= channel.name %></option>
-        <% } %>
-        <option value="<%= channel.id %>">#<%= channel.name %></option>
-        <% }); %>  
-      <% } %>
-  </select>
-</div>
-<% if (welcomeLog != 'off') { %>
-<label for="joinrole">Join Role</label>
+  <label for="joinrole">Auto Role</label>
 <div class="form-group">
   <select style="width: 100px;" name="joinrole" class="form-control">
     <% if (joinRole == 'off'){ %>
@@ -190,7 +163,31 @@
       <% } %>
   </select>
 </div>  
-<% } %>
+  <label for="welcomelog">Welcomer</label>
+<div class="form-group">
+  <select style="width: 100px;" name="welcomelog" class="form-control">
+    <% if (welcomeLog == 'off'){ %>
+      <option selected value="off">Off</option>
+      <% 
+      guild.channels.forEach(channel => {
+          if (channel.type != 'text') return;
+        %>
+        <option value="<%= channel.id %>">#<%= channel.name %></option>
+        <% }); %>  
+      <% } %>
+      <% if (welcomeLog != 'off'){ %>
+      <option value="off">Off</option>
+      <% 
+      guild.channels.forEach(channel => {
+          if (channel.type != 'text') return;
+          if (channel.id == welcomeLog){ %>
+          <option selected value="<%= channel.id %>">#<%= channel.name %></option>
+        <% } %>
+        <option value="<%= channel.id %>">#<%= channel.name %></option>
+        <% }); %>  
+      <% } %>
+  </select>
+</div>
 <% if (welcomeLog != 'off') { %>
 <label for="welcomemessage">Welcome Message</label>
 <br>
