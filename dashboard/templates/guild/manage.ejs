@@ -165,6 +165,33 @@
   </select>
 </div>
 <% if (welcomeLog != 'off') { %>
+<label for="joinrole">Join Role</label>
+<div class="form-group">
+  <select style="width: 100px;" name="joinrole" class="form-control">
+    <% if (joinRole == 'off'){ %>
+      <option selected value="off">Off</option>
+      <% 
+      guild.roles.forEach(role => {
+        if (role.name == '@everyone') return;
+        %>
+        <option value="<%= role.id %>"><%= role.name %></option>
+        <% }); %>  
+      <% } %>
+      <% if (joinRole != 'off'){ %>
+      <option value="off">Off</option>
+      <% 
+      guild.roles.forEach(role => {
+        if (role.name == '@everyone') return;
+          if (role.id == joinRole){ %>
+          <option selected value="<%= role.id %>"><%= role.name %></option>
+        <% } %>
+        <option value="<%= role.id %>"><%= role.name %></option>
+        <% }); %>  
+      <% } %>
+  </select>
+</div>  
+<% } %>
+<% if (welcomeLog != 'off') { %>
 <label for="welcomemessage">Welcome Message</label>
 <br>
 <div class="form-group">
