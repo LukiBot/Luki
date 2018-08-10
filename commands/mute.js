@@ -3,8 +3,8 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         let member = message.mentions.members.first();
     if(!member)
       return message.reply("Please mention a valid member of this server");
-    var guild = client.guilds.find("id", message.guild.id);
-    var mutedRole = message.guild.roles.find("name", "Muted");
+    var guild = client.guilds.find(g => g.id == message.guild.id);
+    var mutedRole = message.guild.roles.find(r => r.name == "Muted");
     if (mutedRole == null) {
     	guild.createRole({name: "Muted", color: "GRAY"
     		, permissions: ["READ_MESSAGE_HISTORY"]
@@ -27,12 +27,12 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     } else {
       mutedRole = mutedRole;
     }
-    if (member.roles.find("id", mutedRole.id) != null) {
+    if (member.roles.find(r => r.id == mutedRole.id) != null) {
       return message.reply(`I cannnot mute someone who is already muted!`);
     }
     let reason = args.slice(1).join(' ');
     if(!reason) reason = "No reason provided";
-    await member.addRole(mutedRole)
+    await member.roles.add(mutedRole)
       .catch(error => {
         return message.reply(`Sorry ${message.author} I couldn't mute this user`);
       });

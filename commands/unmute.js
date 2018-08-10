@@ -3,16 +3,16 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         let member = message.mentions.members.first();
     if(!member)
       return message.reply("Please mention a valid member of this server");
-    var guild = client.guilds.find("id", message.guild.id);
-    var mutedRole = message.guild.roles.find("name", "Muted");
+    var guild = client.guilds.find(g => g.id == message.guild.id);
+    var mutedRole = message.guild.roles.find(r => r.name == "Muted");
     if (mutedRole == null)
     	return;
     let reason = args.slice(1).join(' ');
     if(!reason) reason = "No reason provided";
-    if (member.roles.find("id", mutedRole.id) == null) {
+    if (member.roles.find(r => r.id == mutedRole.id) == null) {
       return message.reply(`I cannnot unmute someone who is not muted!`);
     }
-    await member.removeRole(mutedRole)
+    await member.roles.remove(mutedRole)
       .catch(error => {
         return message.reply(`Sorry ${message.author} I couldn't mute this user`);
       });

@@ -313,9 +313,12 @@ module.exports = (client) => {
         serverLogChannel = 'off';
         welcomeLog = 'off';
         prefix = 'l.';
-        welcomeMessage = '';
-        leaveMessage = '';
+        welcomeMessage = 'Welcome ${user.name} to {server.name}';
+        leaveMessage = '${user.name} has left {server.name}';
         joinRole = 'off';
+        serversDB.run(`INSERT INTO servers(id) VALUES(?)`, [req.params.guildID], function(err) {
+          if(err) return console.log(err.message)
+        })
       } else {
         if (row.modlog == '') {
           modLogChannel = 'off'
@@ -361,29 +364,28 @@ module.exports = (client) => {
       value = 0;
     }
 
+    let welcomemessage = req.body.welcomemessage;
+    let leavemessage = req.body.leavemessage;
+    if (!welcomemessage) welcomemessage = "Welcome ${user.name} to {server.name}"
+    if (!leavemessage) leavemessage = "${user.name} has left {server.name}"
+
     serversDB.get(`SELECT * FROM servers WHERE id = ?`, [req.params.guildID], (err, row) => {
       if (err) {
         return console.error(err.message);
       }
-
       if (!row) {
-        serversDB.run(`INSERT INTO servers(id, leveling, modlog, serverlog, prefix, welcomeLog, welcomeMessage, leaveMessage, joinRole) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`, [req.params.guildID, value, req.body.modlog, req.body.serverlog, req.body.prefix, req.body.welcomelog, req.body.welcomemessage, req.body.leavemessage. req.body.joinrole], function(err) {
+        serversDB.run(`INSERT INTO servers(id, leveling, modlog, serverlog, prefix, welcomeLog, welcomeMessage, leaveMessage, joinRole) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`, [req.params.guildID, value, req.body.modlog, req.body.serverlog, req.body.prefix, req.body.welcomelog, welcomemessage, leavemessage. req.body.joinrole], function(err) {
           if (err) {
             return console.log(err.message);
           }
-
         });
-
       } else {
-        serversDB.run(`UPDATE servers SET leveling = ?, modlog = ?, serverlog = ?, prefix = ?, welcomeLog = ?, welcomeMessage = ?, leaveMessage = ?, joinRole = ? WHERE id =? `, [value,  req.body.modlog, req.body.serverlog, req.body.prefix, req.body.welcomelog, req.body.welcomemessage, req.body.leavemessage, req.body.joinrole, req.params.guildID], function(err) {
+        serversDB.run(`UPDATE servers SET leveling = ?, modlog = ?, serverlog = ?, prefix = ?, welcomeLog = ?, welcomeMessage = ?, leaveMessage = ?, joinRole = ? WHERE id =? `, [value,  req.body.modlog, req.body.serverlog, req.body.prefix, req.body.welcomelog, welcomemessage, leavemessage, req.body.joinrole, req.params.guildID], function(err) {
           if (err) {
             return console.error(err.message);
           }
-         
         });
-
       }
-    
     });
     res.redirect("/dashboard/"+req.params.guildID+"/manage");
   });

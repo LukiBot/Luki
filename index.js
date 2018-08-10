@@ -101,6 +101,37 @@ client.on('guildMemberRemove', async (member) => {
     channel.send(leaveMessage) 
   })
 })
+
+// server-log 
+client.on('guildMemberAdd', async (member) => {
+  serversDB.get("SELECT * FROM servers WHERE id = ?", [member.guild.id], (err, row) => {
+    if (!row) return;
+    if (err) return console.log(err.message);
+    if (row.serverlog == 'off') return;
+    if (row.serverlog == null) return;
+    const channel = client.channels.get(row.serverlog)
+    const embed = new Discord.MessageEmbed()
+    .setTitle("Member Joined")
+    .setThumbnail(member.user.avatarURL())
+    .addField("Username:", member.user.tag, true)
+    channel.send(embed)
+    });
+})
+client.on('guildMemberRemove', async (member) => {
+  serversDB.get("SELECT * FROM servers WHERE id = ?", [member.guild.id], (err, row) => {
+    if (!row) return;
+    if (err) return console.log(err.message);
+    if (row.serverlog == 'off') return;
+    if (row.serverlog == null) return;
+    const channel = client.channels.get(row.serverlog)
+    const embed = new Discord.MessageEmbed()
+    .setTitle("Member Left")
+    .setThumbnail(member.user.avatarURL())
+    .addField("Username:", member.user.tag, true)
+    channel.send(embed)
+    });
+})
+
   client.levelCache = {};
   for (let i = 0; i < client.config.permLevels.length; i++) {
     const thisLevel = client.config.permLevels[i];

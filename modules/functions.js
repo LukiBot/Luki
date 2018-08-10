@@ -1,5 +1,6 @@
 module.exports = (client) => {
-
+  const sqlite3 = require("sqlite3");
+  const db = new sqlite3.Database('./database/servers.db');
  client.permlevel = message => {
     let permlvl = 0;
 
@@ -22,10 +23,8 @@ module.exports = (client) => {
   };
 
   client.modlog = (serverid, type, mod, badguy, reason, color) => {
-    const sqlite3 = require("sqlite3");
     const Discord = require("discord.js");
-    const { RichEmbed } = require("discord.js");
-    const db = new sqlite3.Database('./database/servers.db');
+    const { MessageEmbed } = require("discord.js");
     const guild = client.guilds.get(serverid);
 
 
@@ -35,7 +34,7 @@ module.exports = (client) => {
       if (!row) return;
       if (err) return console.log(err.message);
       if (row.modlog == 'off') return console.log(`Modlog is disabled on ${guild.name}`)
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
       .setTitle(type + " case")
       .setColor(color)
       .addField("Moderator:", mod, true)
@@ -43,80 +42,6 @@ module.exports = (client) => {
       .addField("Reason:", reason, false)
       const channel = client.channels.get(row.modlog)
       channel.send(embed) 
-      });
-  };
-
-  client.serverlogMemberJoined = (serverid, username, avatar) => {
-    const sqlite3 = require("sqlite3");
-    const Discord = require("discord.js");
-    const { RichEmbed } = require("discord.js");
-    const db = new sqlite3.Database('./database/servers.db');
-
-    db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
-      if (!row) return;
-      if (err) return console.log(err.message);
-      if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
-      const channel = client.channels.get(row.serverlog)
-      const embed = new Discord.RichEmbed()
-      .setTitle("New Member")
-      .setThumbnail(avatar)
-      .addField("Username:", username, true)
-      channel.send(embed)
-      });
-  };
-
-  client.serverlogMemberLeft = (serverid, username, avatar) => {
-    const sqlite3 = require("sqlite3");
-    const Discord = require("discord.js");
-    const { RichEmbed } = require("discord.js");
-    const db = new sqlite3.Database('./database/servers.db');
-
-    db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
-      if (!row) return;
-      if (err) return console.log(err.message);
-      if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
-      const channel = client.channels.get(row.serverlog)
-      const embed = new Discord.RichEmbed()
-      .setTitle("Member Left")
-      .setThumbnail(avatar)
-      .addField("Username:", username, true)
-      channel.send(embed)
-      });
-  };
-
-  client.serverlogRoleCreated = (serverid, rolename) => {
-    const sqlite3 = require("sqlite3");
-    const Discord = require("discord.js");
-    const { RichEmbed } = require("discord.js");
-    const db = new sqlite3.Database('./database/servers.db');
-      
-    db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
-      if (!row) return;
-      if (err) return console.log(err.message);
-      if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
-      const channel = client.channels.get(row.serverlog)
-      const embed = new Discord.RichEmbed()
-      .setTitle("Role Created")
-      .addField("Role name:", rolename, true)
-      channel.send(embed)
-      });
-  };
-
-  client.serverlogRoleDeleted = (serverid, rolename) => {
-    const sqlite3 = require("sqlite3");
-    const Discord = require("discord.js");
-    const { RichEmbed } = require("discord.js");
-    const db = new sqlite3.Database('./database/servers.db');
-
-    db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
-      if (!row) return;
-      if (err) return console.log(err.message);
-      if (row.serverlog == 'off') return console.log(`Serverlog is disabled on ${guild.name}`)
-      const channel = client.channels.get(row.serverlog)
-      const embed = new Discord.RichEmbed()
-      .setTitle("Role Deleted")
-      .addField("Role name:", rolename, true)
-      channel.send(embed)
       });
   };
 

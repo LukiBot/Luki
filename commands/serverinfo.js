@@ -22,10 +22,11 @@ exports.run = async (client, msg, args, level) => {
         "london": ":flag_gb: London",
         "amsterdam": ":flag_nl: Amsterdam",
         "hongkong": ":flag_hk: Hong Kong",
-        "russia": ":flag_ru: Russia"
+        "russia": ":flag_ru: Russia",
+        "southafrica": ":flag_za:  South Africa"
     };
     const embed = new Discord.MessageEmbed()
-        .setAuthor(msg.guild.name, msg.guild.iconURL)
+        .setAuthor(msg.guild.name, msg.guild.iconURL())
         .addField("Name", msg.guild.name, true)
         .addField("ID", msg.guild.id, true)
         .addField("Owner", `${msg.guild.owner.user.username}#${msg.guild.owner.user.discriminator}`, true)
@@ -35,7 +36,7 @@ exports.run = async (client, msg, args, level) => {
         .addField("Channels", msg.guild.channels.size, true)
         .addField("Roles", msg.guild.roles.size, true)
         .addField("Creation Date", `${msg.channel.guild.createdAt.toUTCString().substr(0, 16)} (${checkDays(msg.channel.guild.createdAt)})`, true)
-        .setThumbnail(msg.guild.iconURL)
+        .setThumbnail(msg.guild.iconURL())
     msg.channel.send({embed});
 }
 

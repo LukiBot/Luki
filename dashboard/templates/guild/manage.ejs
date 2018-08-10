@@ -3,7 +3,8 @@
     <div class="col col-4">
       <%- include('../blocks/guild-card', {guild, levelValue, modLogChannel, serverLogChannel}) %>
     </div>
-    <div class="col">
+            <br>
+            <br> 
         <style>
             .switch {
               position: relative;
@@ -112,7 +113,7 @@
             <% } %>
       </select>
     </div>
-    <label for="serverlog">Server-Log (Not Functional)</label>
+    <label for="serverlog">Server-Log</label>
     <br>
   <div class="form-group">
     <select style="width: 100px;" name="serverlog" class="form-control">
@@ -205,6 +206,7 @@
 {user.mention}
 {user.name}
 {server.name}
+{member.count}
 </code>
 <% } %>
         <div style="width: 100%; text-align: right; margin-top: 20px;">
