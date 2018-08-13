@@ -84,6 +84,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
                 .addField("Level:", row.level, true)
                 .addField("Exp:", row.exp, true)
                 .addField("Rank:", rank, true)
+                .addField("Balance:", row.balance, true)
                 .addField("Bio:", row.bio, false)
             message.channel.send({
                 embed

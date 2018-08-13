@@ -11,7 +11,7 @@ db.get(`SELECT * FROM users WHERE id = ?`, [userid], (err, row) => {
     console.log(err.message)
  }
  if (!row) {
-    db.run(`INSERT INTO users(exp, id) VALUES(?, ?)`, [1, userid], function(err) {
+    db.run(`INSERT INTO users(exp, id, balance) VALUES(?, ?, ?)`, [1, userid, 1], function(err) {
         if (err) {
           return console.log(err.message);
         }
@@ -20,14 +20,16 @@ db.get(`SELECT * FROM users WHERE id = ?`, [userid], (err, row) => {
       return;
 }
   var exp = row.exp + 1;
-  db.run(`UPDATE users SET exp = ? WHERE id = ?`, [exp, userid], function(err) {
+  var balance = row.balance + 1;
+  db.run(`UPDATE users SET exp = ?, balance = ? WHERE id = ?`, [exp, balance, userid], function(err) {
     if (err) {
       return console.error(err.message);
     }
     db.get(`SELECT * FROM users WHERE id = ?`, [userid], (err, row2) => {
       if (row2.exp > row2.level * 10) {
         var levelup = row2.level + 1
-        db.run(`UPDATE users SET exp = ?, level = ? WHERE id = ?`, [1, levelup, userid], (err) => {
+        var moremoney = row.balance + row.level * 10
+        db.run(`UPDATE users SET exp = ?, level = ?, balance = ? WHERE id = ?`, [1, levelup, moremoney, userid], (err) => {
           if (err) return console.log(`Error in MESSAGE event : line 17`)
           var serverid = message.guild.id;
           db2.get(`SELECT * FROM servers WHERE id =?`, [serverid], (err, row3) => {
@@ -49,6 +51,7 @@ db.get(`SELECT * FROM users WHERE id = ?`, [userid], (err, row) => {
     });
   });
 })
+
 
 
  

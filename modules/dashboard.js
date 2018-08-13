@@ -187,10 +187,12 @@ module.exports = (client) => {
       let userExp
       let userLevel
       let userTitle
+      let userBalance
       let userBio
       if (!row) {
         userExp = 1;
         userLevel = 1;
+        userBalance = 1;
         userTitle = "No title was found";
         userBio = "No bio was found";
       } else {
@@ -198,8 +200,9 @@ module.exports = (client) => {
         userLevel = row.level
         userTitle = row.title
         userBio = row.bio
+        userBalance = row.balance
       }
-      renderTemplate(res, req, "/user/me.ejs", {userExp, userLevel, userTitle, userBio, userRank});
+      renderTemplate(res, req, "/user/me.ejs", {userExp, userLevel, userTitle, userBio, userRank, userBalance});
     })
   });
 
@@ -267,21 +270,24 @@ module.exports = (client) => {
       const userRank = client.config.permLevels.find(l => l.level === rankLevel).name;
       let userExp
       let userLevel
+      let userBalance
       let userTitle
       let userBio
       if (!row) {
         userExp = 1;
         userLevel = 1;
+        userBalance = 1;
         userTitle = "No title was found";
         userBio = "No bio was found";
       } else {
         userExp = row.exp
+        userBalance = row.balance
         userLevel = row.level
         userTitle = row.title
         userBio = row.bio
       }
       var username = user.username
-      renderTemplate(res, req, "/user/user.ejs", {userExp, userLevel, userTitle, userBio, username, userRank});
+      renderTemplate(res, req, "/user/user.ejs", {userExp, userLevel, userTitle, userBio, username, userRank, userBalance});
     })
   });
 
@@ -289,7 +295,9 @@ module.exports = (client) => {
     res.redirect(`/dashboard/${req.params.guildID}/manage`);
   });
 
-
+  app.get("/leaderboard", (req, res) => {
+    renderTemplate(res, req, "leaderboard.ejs");
+  });
   app.get("/dashboard/:guildID/manage", checkAuth, (req, res) => {
     const guild = client.guilds.get(req.params.guildID);
     if (!guild) return res.status(404);

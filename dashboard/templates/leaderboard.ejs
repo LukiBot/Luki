@@ -1,0 +1,73 @@
+<%- include('blocks/header', {bot, user, path}) %>
+<style>
+  table.darkTable {
+  font-family: "Arial Black", Gadget, sans-serif;
+  border: 2px solid #23272A;
+  background-color: #23272A;
+  width: 100%;
+  height: 200px;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.darkTable td, table.darkTable th {
+  border: 1px solid #23272A;
+  padding: 3px 2px;
+}
+table.darkTable tbody td {
+  font-size: 13px;
+  color: #E6E6E6;
+}
+table.darkTable tr:nth-child(even) {
+  background: #23272A;
+}
+table.darkTable thead {
+  background: #23272A;
+  border-bottom: 3px solid #23272A;
+}
+table.darkTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #E6E6E6;
+  text-align: center;
+  border-left: 2px solid #23272A;
+}
+table.darkTable thead th:first-child {
+  border-left: none;
+}
+</style>
+<div class="container">
+  <div class="jumbotron">
+        <h1><%= bot.user.username %> Leaderboard</h1>
+        </div>
+        </div>
+        <table class="darkTable">
+          <thead>
+            <tr>
+              <th scope="col">Username</th>
+              <th scope="col">ID</th>
+              <th scope="col">Profile</th>
+              <th scope="col">Level</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>MrSheldon</td>
+              <td>231733082804322304</td>
+              <td><a target="_blank" href="https://dashboard.luki.xyz/user/139075883142086656">View</a></td>
+              <td>60</td>
+            </tr>
+            <tr>
+              <td>MrSheldon</td>
+              <td>231733082804322304</td>
+              <td><a target="_blank" href="https://dashboard.luki.xyz/user/139075883142086656">View</a></td>
+              <td>60</td>
+            </tr>
+            <tr>
+              <td>MrSheldon</td>
+              <td>231733082804322304</td>
+              <td><a target="_blank" href="https://dashboard.luki.xyz/user/139075883142086656">View</a></td>
+              <td>60</td>
+            </tr>
+          </tbody>
+        </table>
+<% include ./blocks/footer %>
