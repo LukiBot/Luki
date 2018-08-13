@@ -17,6 +17,8 @@ Join Discord for Support and Development https://discord.gg/76PAmCv
 
 [**RefusingsPaPa**](https://github.com/RefusingsPaPa)
 
+[**JacobTyrrell**](https://github.com/JacobTyrrell)
+
 ### Guide on How to Contribute: [Click Here](https://github.com/LukiBot/Luki/blob/master/CONTRIBUTING.md)
 
 ## Widgets
