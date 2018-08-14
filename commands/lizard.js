@@ -1,9 +1,9 @@
-const superagent = require("snekfetch");
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-    superagent.get('https://nekos.life/api/v2/img/lizard')
+    const { get } = require('superagent')
+    .get('https://nekos.life/api/v2/img/lizard')
         .end((err, response) => {
-          message.channel.send({ file: response.body.url });
+          message.channel.send( response.body.url );
         });
 }
 
@@ -16,7 +16,7 @@ exports.conf = {
 
 exports.help = {
     name: "lizard",
-    category: "Animals",
+    category: "Fun",
     description: "Post a random image of a lizard",
     usage: "lizard"
 };

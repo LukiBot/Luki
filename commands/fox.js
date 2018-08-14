@@ -1,9 +1,9 @@
-const superagent = require("snekfetch");
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-    superagent.get('https://randomfox.ca/floof/')
+    const { get } = require('superagent')
+    .get('https://randomfox.ca/floof/')
         .end((err, response) => {
-          message.channel.send({ file: response.body.image });
+          message.channel.send(esponse.body.image);
         });
 }
 
@@ -16,7 +16,7 @@ exports.conf = {
 
 exports.help = {
     name: "fox",
-    category: "Animals",
+    category: "Fun",
     description: "Post a random image of a fox",
     usage: "fox"
 };

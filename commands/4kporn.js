@@ -1,18 +1,19 @@
-const superagent = require('superagent')
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
     if (message.channel.nsfw === true) {
-        superagent.get('https://discordbots.org/api/bots/365958655926992896/check')
+      const { get } = require('superagent')
+        .get('https://discordbots.org/api/bots/365958655926992896/check')
         .set('Authorization', '') 
         .query({ userId: message.author.id })
-        .end((err, response) => {
-          console.log(response.body.voted);
-          var check = response.body.voted;
+        .end((err, res) => {
+          console.log(res.body.voted);
+          var check = res.body.voted;
           if (check == 1) {
-            superagent.get('https://nekobot.xyz/api/image')
+            const { get } = require('superagent')
+            .get('https://nekobot.xyz/api/image')
             .query({ type: '4k'})
-            .end((err, response) => {
-              message.channel.send({ file: response.body.message });
+            .end((err, res) => {
+              message.channel.send({ file: res.body.message });
             });
           } else {
             message.channel.send({embed: {

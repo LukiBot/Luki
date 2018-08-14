@@ -1,9 +1,9 @@
-const superagent = require("snekfetch");
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-    superagent.get('https://animals.anidiots.guide/lion')
+    const { get } = require('superagent')
+    .get('https://animals.anidiots.guide/lion')
         .end((err, response) => {
-          message.channel.send({ file: response.body.link });
+          message.channel.send( response.body.link );
         });
 }
 
@@ -16,7 +16,7 @@ exports.conf = {
 
 exports.help = {
     name: "lion",
-    category: "Animals",
+    category: "Fun",
     description: "Post a random image of a lion",
     usage: "lion"
 };
