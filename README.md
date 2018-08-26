@@ -19,6 +19,8 @@ Join Discord for Support and Development https://discord.gg/76PAmCv
 
 [**DetectiveHuman**](https://github.com/DetectiveHuman)
 
+[**Jacxk**](https://github.com/Jacxk)
+
 ### Guide on How to Contribute: [Click Here](https://github.com/LukiBot/Luki/blob/master/CONTRIBUTING.md)
 
 ## Widgets
