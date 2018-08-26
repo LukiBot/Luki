@@ -9,18 +9,18 @@
     "node": ">=8"
   },
   "dependencies": {
-    "bfd.js": "^3.4.3",
     "bindings": "^1.3.0",
     "body-parser": "^1.18.2",
     "chalk": "^2.3.0",
-    "discord.js": "github:discordjs/discord.js#internal-sharding",
+    "discord.js": "^11.3.2",
+    "discord.js-lavalink": "^2.1.3",
+    "discordbots.group": "^5.9.9",
     "ejs": "^2.5.7",
     "enmap": "^2.0.4",
     "enmap-level": "^2.1.0",
     "express": "^4.16.1",
     "express-passport": "^0.1.0",
     "express-session": "^1.15.6",
-    "ffmpeg": "0.0.4",
     "forever": "^0.15.3",
     "fortnite": "^4.1.1",
     "fs": "0.0.1-security",
@@ -34,13 +34,13 @@
     "moment-duration-format": "^2.2.0",
     "passport": "^0.4.0",
     "passport-discord": "^0.1.2",
+    "pretty-ms": "^3.2.0",
     "querystring": "^0.2.0",
     "relevant-urban": "^2.0.0",
     "request-promise-native": "^1.0.5",
     "snekfetch": "^3.5.2",
     "sqlite3": "^4.0.2",
-    "superagent": "^3.8.3",
-    "ytdl-core": "^0.20.4"
+    "superagent": "^3.8.3"
   },
   "scripts": {
     "start": "node index.js"
