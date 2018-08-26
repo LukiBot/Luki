@@ -19,7 +19,18 @@ const config = {
     "domain": "",
     "port": 80
   },
-
+  
+  "lava-link": {
+    "nodes": [
+      {
+        "host": "",
+        "region": "",
+        "password": "",
+        "port": 8080
+      }
+    ]
+  },
+  
   "defaultSettings" : {
     "prefix": "",
   },
