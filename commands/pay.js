@@ -9,7 +9,7 @@ exports.run = async (client, message, args, level) => {
   if (!user2) return message.channel.send("Please specify user and amount\n`l.pay @user amount`");
   if (!amount) return message.channel.send("Please specify user and amount\n`l.pay @user amount`");
   if (amount == 0) return message.channel.send("Please a larger amount than 1");
-  if (isNaN(amount)) return message.channel.send("Please specify a valid number");
+  if (isNaN(amount) || amount.includes(".") || amount.includes("+") || amount.includes("-")) return message.channel.send("Please specify a valid number");
   db.get(`SELECT * FROM users WHERE id = ?`, [message.author.id], (err, row) => {
     if (err) return console.log(err.message);
     if (!row) {

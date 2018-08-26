@@ -5,6 +5,9 @@ const { promisify } = require("util");
 const readdir = promisify(require("fs").readdir);
 const Enmap = require("enmap");
 const EnmapLevel = require("enmap-level");
+const {PlayerManager} = require("discord.js-lavalink");
+const snekfetch = require('snekfetch');
+const fs = require('fs');
 
 const client = new Discord.Client({ 
   autoReconnect: true,
@@ -19,11 +22,98 @@ require("./modules/functions.js")(client);
 
 client.commands = new Enmap();
 client.aliases = new Enmap();
+client.queue = new Enmap();
 
 client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 
+client.lavaLinkNodes = client.config["lava-link"].nodes;
+
 const sql = require('sqlite3');
 const serversDB = new sql.Database(process.cwd() + "/database/servers.db")
+
+process.on('SIGINT', () => {
+  client.guilds.forEach(guild => {
+      if (client.playerManager.get(guild)) client.playerManager.leave(guild);
+  });
+  process.exit();
+});
+
+process.on('SIGHUP', () => process.emit('SIGINT'));
+process.on('SIGTERM', () => process.emit('SIGINT'));
+
+client.getSongs = async function getSongs(string) {
+  const res = await snekfetch.get(`http://localhost:2333/loadtracks?identifier=ytsearch:${string}`)
+      .set("Authorization", "youshallnotpass")
+      .catch(err => {
+          console.error(err);
+          return null;
+      });
+  if (!res) return {error: "There was an error, try again"};
+  if (res.body.length < 1) return {error: "No tracks found"};
+  return res.body;
+};
+
+
+class Player extends PlayerManager {
+  constructor(client, lavaLinkNodes, param3) {
+      super(client, lavaLinkNodes, param3);
+  }
+
+  join(data, {selfmute = false, selfdeaf = false} = {}) {
+      const player = this.get(data.guild.id);
+      if (player) return player;
+      this.client.ws.shards[data.guild.shardID].send({
+          op: 4,
+          d: {
+              guild_id: data.guild.id,
+              channel_id: data.channel,
+              self_mute: selfmute,
+              self_deaf: selfdeaf
+          }
+      });
+      return this.spawnPlayer({
+          host: data.host,
+          guild: data.guild.id,
+          channel: data.channel
+      });
+  }
+
+  leave(guild) {
+      this.client.ws.shards[guild.shardID].send({
+          op: 4,
+          d: {
+              guild_id: guild.id,
+              channel_id: null,
+              self_mute: false,
+              self_deaf: false
+          }
+      });
+      const player = this.get(guild.id);
+      if (!player) return false;
+      player.removeAllListeners();
+      player.destroy();
+      return this.delete(guild.id);
+  }
+
+  async voiceServerUpdate(data) {
+      const guild = this.client.guilds.get(data.guild_id);
+      if (!guild) return;
+      const player = this.get(data.guild_id);
+      if (!player) return;
+      if (!guild.me) await guild.members.fetch(this.client.user.id).catch(() => null);
+
+      player.connect({
+          session: guild.me.voiceSessionID,
+          event: data
+      });
+  }
+}
+
+client.on('ready', () => {
+  client.playerManager = new Player(client, client.lavaLinkNodes, {
+      user: client.user.id
+  });
+});
 
 const init = async () => {
 
