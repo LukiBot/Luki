@@ -8,7 +8,7 @@ Join Discord for Support and Development https://discord.gg/76PAmCv
 ## Built With
 Express - The web framework used
 
-EJS - The view manager used
+EJS - The view engine used
 
 Discord.JS - The library used for interacting with the Discord API 
 
