@@ -12,6 +12,8 @@ Discord.JS - The library used for interacting with the Discord API
 
 Sqlite3 - The database used to store users and servers data
 
+Lavalink - The library used for the music module
+
 ## Contributing
 Please read [CONTRIBUTING.md](https://github.com/LukiBot/Luki/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
