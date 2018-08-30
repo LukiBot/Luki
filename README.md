@@ -3,9 +3,15 @@
 [![Discord Bots](https://discordbots.org/api/widget/servers/365958655926992896.svg?noavatar=true)](https://discordbots.org/bot/365958655926992896)
 [![Discord Bots](https://discordbots.org/api/widget/upvotes/365958655926992896.svg?noavatar=true)](https://discordbots.org/bot/365958655926992896)
 
-
-
 Join Discord for Support and Development https://discord.gg/76PAmCv
+
+## Built With
+Express - The web framework used
+Discord.JS - The library used for interacting with the Discord API 
+Sqlite3 - The database used to store users and servers data
+
+## Contributing
+Please read [CONTRIBUTING.md](https://github.com/LukiBot/Luki/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Developer
 [**MrSheldon**](https://github.com/mrsheldon)
@@ -20,8 +26,6 @@ Join Discord for Support and Development https://discord.gg/76PAmCv
 [**DetectiveHuman**](https://github.com/DetectiveHuman)
 
 [**Jacxk**](https://github.com/Jacxk)
-
-### Guide on How to Contribute: [Click Here](https://github.com/LukiBot/Luki/blob/master/CONTRIBUTING.md)
 
 ## Widgets
 [![DBotsForDiscord](https://botsfordiscord.com/api/v1/bots/365958655926992896/embed)](https://botsfordiscord.com/bot/365958655926992896/)
