@@ -8,6 +8,8 @@ Join Discord for Support and Development https://discord.gg/76PAmCv
 ## Built With
 Express - The web framework used
 
+EJS - The view manager used
+
 Discord.JS - The library used for interacting with the Discord API 
 
 Sqlite3 - The database used to store users and servers data
