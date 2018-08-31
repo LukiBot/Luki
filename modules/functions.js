@@ -22,6 +22,23 @@ module.exports = (client) => {
     console.log(`[${type}] [${title}]${msg}`);
   };
 
+  client.sendMail = (mailTo, mailSubject, mailText) => {
+    if (!mailTo || !mailSubject || !mailText) throw new Error('This function requires 3 argument');
+    if (!mailTo && !mailSubject && !mailText) throw new Error('This function requires 3 argument');
+    if (!mailTo) throw new Error('This function requires 3 argument');
+    if (!mailSubject) throw new Error('This function requires 3 argument');
+    if (!mailText) throw new Error('This function requires 3 argument');
+    client.mailer.send({
+        from: client.config.mailer.address,
+        subject: mailSubject,
+        to: mailTo,
+        text: mailText
+    }, function(err, message) {
+      console.log(err || message);
+    });
+    return `Mail from ${client.config.mailer.address} has been send to ${mailTo}!`;
+   };
+
   client.modlog = (serverid, type, mod, badguy, reason, color) => {
     const Discord = require("discord.js");
     const { MessageEmbed } = require("discord.js");
@@ -77,7 +94,6 @@ module.exports = (client) => {
       .replace(/`/g, "`" + String.fromCharCode(8203))
       .replace(/@/g, "@" + String.fromCharCode(8203))
       .replace(client.token, "mfa.VkO_2G4Qv3T--NO--lWetW_tjND--TOKEN--QFTm6YGtzq9PH--4U--tG0");
-
     return text;
   };
 
