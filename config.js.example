@@ -11,7 +11,14 @@ const config = {
   "trusted": [],
 
   "token": "",
-
+  
+ "mailer" : {
+    "address": "",
+    "password": "",
+    "host": "",
+    "ssl": true
+  },
+  
   "dashboard" : {
     "oauthSecret": "",
     "callbackURL": "",
