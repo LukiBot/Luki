@@ -8,6 +8,8 @@ const EnmapLevel = require("enmap-level");
 const {PlayerManager} = require("discord.js-lavalink");
 const snekfetch = require('snekfetch');
 const fs = require('fs');
+const sql = require('sqlite3');
+var email = require("emailjs");
 
 const client = new Discord.Client({ 
   autoReconnect: true,
@@ -28,7 +30,6 @@ client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 
 client.lavaLinkNodes = client.config["lava-link"].nodes;
 
-const sql = require('sqlite3');
 const serversDB = new sql.Database(process.cwd() + "/database/servers.db")
 
 process.on('SIGINT', () => {
@@ -113,6 +114,13 @@ client.on('ready', () => {
   client.playerManager = new Player(client, client.lavaLinkNodes, {
       user: client.user.id
   });
+});
+
+client.mailer = email.server.connect({
+  user: client.config.mailer.address,
+  password: client.config.mailer.password,
+  host: client.config.mailer.host,
+  ssl: client.config.mailer.ssl
 });
 
 const init = async () => {
@@ -231,9 +239,6 @@ client.on('guildMemberRemove', async (member) => {
   client.on('error', (error) => {
   console.log(error)
   })
-
-  client.on("warn", (e) => console.warn(e));
-  client.on("debug", (e) => console.info(e));
 
   client.login(client.config.token);
 
