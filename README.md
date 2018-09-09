@@ -46,5 +46,5 @@ We're proudly hosted by [DigitalOcean](https://m.do.co/c/805443143001). Visit th
 GNU General Public License v3.0
 This project is licensed under the GNU General Public License v3.0, see the [**LICENSE**](https://github.com/LukiBot/Luki/blob/master/LICENSE) file for details
 
-# Self-Hosting
+## Self-Hosting
 Self-hosting this bot (running a copy yourself) is not supported, and no help will be provided for editing nor compiling the code in this repository. The source code is provided here for transparency about how the bot's primary features work. If you decide to edit, compile, or use this code in any way, please respect the [license](https://github.com/LukiBot/Vortex/Luki/master/LICENSE)
