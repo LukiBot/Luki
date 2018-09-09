@@ -18,6 +18,7 @@
             </script>
             <% } %>
               <div class="card-block">
+                <br>
                 <h4 class="card-title">
                   <%= guild.name %>
                 </h4>
@@ -51,8 +52,9 @@
                       <%= `${guild.channels.filter(c => c.type === 'voice').size}`%>
                   </li>
                 </ul>
+                <br>
                 <a class="btn btn-danger" data-toggle="modal" data-target="#serverLeaveModal" role="button">Leave
-                  <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>
+                    <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>
                 </a>
               </div>
       </div>
