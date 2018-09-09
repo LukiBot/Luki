@@ -3,8 +3,8 @@ const Discord = require("discord.js")
 function randomIntInc(low, high) {
     return Math.floor(Math.random() * (high - low + 1) + low);
 }
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-    if (!args[1]) return message.reply("Please ask a full question!");
+exports.run = async (client, message, args, level) => { 
+    if (!args[1]) return messlage.reply("Please ask a full question!");
     var replies = ["It is certain",
     "It is decidedly so",
     "Without a doubt",

@@ -30,7 +30,7 @@ exports.run = async (client, message, args) => {
 
     if (queue.get(message.guild.id)) queueArray = queue.get(message.guild.id);
 
-    if (queueArray > 25) {
+    if (queueArray.length > 9) {
         embed.setTitle("An error has occurred").setColor('RED')
             .setDescription("There is a limit of 25 songs, you cannot add more until a space is free.");
         return channel.send(embed);
@@ -165,7 +165,7 @@ exports.conf = {
     enabled: true,
     guildOnly: true,
     aliases: ["p"],
-    permLevel: "User"
+    permLevel: "Premium"
 };
 
 exports.help = {

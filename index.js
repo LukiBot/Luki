@@ -9,7 +9,7 @@ const {PlayerManager} = require("discord.js-lavalink");
 const snekfetch = require('snekfetch');
 const fs = require('fs');
 const sql = require('sqlite3');
-const email = require("emailjs");
+var email = require("emailjs");
 
 const client = new Discord.Client({ 
   autoReconnect: true,
