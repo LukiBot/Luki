@@ -42,7 +42,6 @@ We're proudly hosted by [DigitalOcean](https://m.do.co/c/805443143001). Visit th
 [![Digital Ocean](https://i.imgur.com/6OBHX8a.png)](https://m.do.co/c/805443143001)
 
 ## License
-GNU General Public License v3.0
 This project is licensed under the GNU General Public License v3.0, see the [**LICENSE**](https://github.com/LukiBot/Luki/blob/master/LICENSE) file for details
 
 ## Self-Hosting
