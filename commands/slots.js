@@ -32,7 +32,7 @@ exports.run = async (client, message, args, level) => {
             return message.channel.send(errEmbed);
         }
         if (amount > row.balance) return message.channel.send("You don't have enough money for that!");
-        const slots = ['🍇', '🍊', '🍋'];
+        const slots = ['🍇', '🍊', '🍋', '🔔', '🍒'];
         const slot1 = slots[Math.floor(Math.random() * slots.length)];
         const slot2 = slots[Math.floor(Math.random() * slots.length)];
         const slot3 = slots[Math.floor(Math.random() * slots.length)];
@@ -45,8 +45,8 @@ exports.run = async (client, message, args, level) => {
         const embed = new Discord.MessageEmbed();
         embed.setTitle("Slots Machine")
         embed.setDescription(`| ${slot1} | ${slot2} | ${slot3} |\n---------------------\n| ${slot4} | ${slot5} | ${slot6} |\n---------------------\n| ${slot7} | ${slot8} | ${slot9} |`)
-        if (slot4 === slot5 && slot4 === slot6) {
-            newAmount = amount * 3;
+        if (slot4 == slot5 && slot4 === slot6 && slot4 == '🔔' && slot5 == '🔔' && slot6 == '🔔') {
+            newAmount = amount * 4;
             db.run(`UPDATE users SET balance = ? WHERE id = ?`, [newAmount, message.author.id], (err) => {
                 if (err) {
                     const errEmbed = new Discord.MessageEmbed();
@@ -56,8 +56,19 @@ exports.run = async (client, message, args, level) => {
                 }
             })
             embed.addField("You won", "$" + newAmount)
-        } else if (slot4 === slot5 || slot5 === slot6) {
+        } else if (slot4 === slot5 || slot5 === slot6 || slot4 === slot6) {
             newAmount = amount * 2;
+            db.run(`UPDATE users SET balance = ? WHERE id = ?`, [newAmount, message.author.id], (err) => {
+                if (err) {
+                    const errEmbed = new Discord.MessageEmbed();
+                    errEmbed.setTitle("An error has occurred")
+                    errEmbed.setColor('RED');
+                    return message.channel.send(errEmbed);
+                }
+            })
+            embed.addField("You won", "$" + newAmount)
+        } else if (slot4 == slot5 && slot4 === slot6) {
+            newAmount = amount * 3;
             db.run(`UPDATE users SET balance = ? WHERE id = ?`, [newAmount, message.author.id], (err) => {
                 if (err) {
                     const errEmbed = new Discord.MessageEmbed();
