@@ -12,6 +12,12 @@ const config = {
 
   "token": "",
   
+  "crm" : {
+    "users": [],
+    "version": "v1.0.5",
+    "edition": "Premium"
+  }, 
+  
  "mailer" : {
     "address": "",
     "password": "",
