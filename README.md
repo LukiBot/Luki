@@ -33,8 +33,7 @@ Please read [CONTRIBUTING.md](https://github.com/LukiBot/Luki/blob/master/CONTRI
 
 [**Jacxk**](https://github.com/Jacxk)
 
-## Widgets
-[![DBotsForDiscord](https://botsfordiscord.com/api/v1/bots/365958655926992896/embed)](https://botsfordiscord.com/bot/365958655926992896/)
+## The DBL Widget
 [![DBL](https://discordbots.org/api/widget/365958655926992896.svg?topcolor=7289DA&middlecolor=fff&usernamecolor=fff&certifiedcolor=fff&datacolor=fff&labelcolor=fff&highlightcolor=7289DA)](https://discordbots.org/bot/365958655926992896)
 
 ## Hosting
