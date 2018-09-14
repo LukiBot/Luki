@@ -1,0 +1,21 @@
+<%- include('../blocks/header', {bot, user, path}) %>
+<form method="post">
+        <label for="to">To:</label>
+        <br>
+      <div class="form-group">
+        <input name="to" class="form-control" value="" required>
+      </div>
+      <br>
+      <label for="subject">Subject:</label>
+      <br>
+    <div class="form-group">
+      <input name="subject" class="form-control" value="" required>
+    </div>
+    <br>
+	<label for="content">Content</label><br /> 
+  <textarea name="content" cols="80" rows="10"></textarea>
+  <br>
+  <br>
+  <button type="submit" class="btn btn-primary">Send <i class="fa fa-fw fa-share" aria-hidden="true"></i></button>
+</form>
+<% include ../blocks/footer %>

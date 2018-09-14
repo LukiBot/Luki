@@ -1,0 +1,17 @@
+<%- include('../blocks/header', {bot, user, path}) %>
+  <div class="container">
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-10"><h3>CRM Information</h3>
+          </div>
+        </div>
+        <div class="row justify-content-md-center">
+          <div class="col-5 text-nowrap"><i aria-hidden="true"></i> Version:</div>
+          <div class="col-5 text-nowrap"><strong><%= info.version %></strong></div>
+        </div>
+        <div class="row justify-content-md-center">
+          <div class="col-5 text-nowrap"><i aria-hidden="true"></i> Edition:</div>
+          <div class="col-5 text-nowrap"><strong><%= info.edition %></strong></div>
+        </div>
+    </div>
+    <% include ../blocks/footer %>

@@ -18,10 +18,14 @@
         <p><a class="btn btn-primary" href="/dashboard" role="button">Dashboard »</a></p>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
         <p><a class="btn btn-primary" href="/me" role="button">Profile »</a></p>
+        <% if (crmAccess) { %>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-        <p><a class="btn btn-primary" href="/logout" role="button">Logout »</a></p> 
+        <p><a class="btn btn-primary" href="/crm" role="button">CRM »</a></p>
+        <% } %>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <p><a class="btn btn-primary" href="/logout" role="button">Logout »</a></p>  
         </div>
-      <% } else { %>
+        <% } else { %>
         <h1><%= bot.user.username %> Dashboard</h1>
         <p><a class="btn btn-primary" href="/login" role="button">Login »</a></p>
       <% } %>

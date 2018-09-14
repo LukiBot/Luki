@@ -1,0 +1,21 @@
+<% if (ticketID == "undefined") { %>
+    <script>
+            window.location.href = "https://dashboard.luki.xyz/crm/tickets";
+    </script> 
+    <% } else { %>   
+   <%- include('../blocks/header', {bot, user, path}) %>
+  <div class="container">
+      <div class="container">
+                
+          <div class="col col-10"><h3><%= ticketID %></h3>
+        </div>
+     <h6><strong>Author:</strong> <%= ticketAuthor %></h6>
+     <h6><strong>Content:</strong> <%= ticketContent %></h6>
+     <br>
+     <% include ../blocks/crm-modals %>
+    <a class="btn btn-danger" data-toggle="modal" data-target="#closeTicketModal" role="button">Close Ticket
+        <i class="fa fa-fw fa-trash" aria-hidden="true"></i>
+    </a>
+    </div>
+    <% include ../blocks/footer %>
+    <% } %>

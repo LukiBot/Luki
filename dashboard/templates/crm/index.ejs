@@ -1,0 +1,29 @@
+<%- include('../blocks/header', {bot, user, path}) %>
+<div class="container">
+  <div class="jumbotron">
+    <div>
+    <style>
+    .flex-item {
+      display: flex;
+      align-items: center;
+  }
+  .flex-item img{
+      flex-grow:0;
+      flex-shrink:0;
+  }
+</style>
+        <h1>Hello, <%= user.username %></h1>
+        <div class="flex-item">
+        <p><a class="btn btn-primary" href="/crm/sendmail" role="button">Send Mail »</a></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <p><a class="btn btn-primary" href="/crm/tickets" role="button">Tickets »</a></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <p><a class="btn btn-primary" href="/crm/info" role="button">Information »</a></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <p><a class="btn btn-primary" href="/" role="button">Home »</a></p> 
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <p><a class="btn btn-primary" href="/logout" role="button">Logout »</a></p> 
+        </div>
+    </div>
+  </div>
+<% include ../blocks/footer %>

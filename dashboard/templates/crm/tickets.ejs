@@ -1,0 +1,16 @@
+<%- include('../blocks/header', {bot, user, path}) %>
+<div class="container">
+  <div class="row">
+<% 
+            allTickets.forEach((ticketInfo) => {
+              %>
+        <div class="col-md-4">
+          <h4 class="ticketInfo"><%= ticketInfo.id %> 
+        </h4>
+          <p><%= ticketInfo.author %></p>
+          <p><a class="btn btn-primary" href="/crm/ticket/<%= ticketInfo.id %>" role="button">View Ticket</a></p>
+       </div>
+       <% }) %>
+  </div>
+  </div>
+<% include ../blocks/footer %>
