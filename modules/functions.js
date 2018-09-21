@@ -40,7 +40,6 @@ module.exports = (client) => {
    };
 
   client.modlog = (serverid, type, mod, badguy, reason, color) => {
-    const Discord = require("discord.js");
     const { MessageEmbed } = require("discord.js");
     const guild = client.guilds.get(serverid);
 
@@ -51,7 +50,7 @@ module.exports = (client) => {
       if (!row) return;
       if (err) return console.log(err.message);
       if (row.modlog == 'off') return console.log(`Modlog is disabled on ${guild.name}`)
-      const embed = new Discord.MessageEmbed()
+      const embed = new MessageEmbed()
       .setTitle(type + " case")
       .setColor(color)
       .addField("Moderator:", mod, true)
