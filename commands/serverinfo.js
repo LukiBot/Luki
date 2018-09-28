@@ -44,12 +44,12 @@ exports.conf = {
     enabled: true,
     guildOnly: true,
     aliases: ["guildinfo"],
-    permLevel: "Developer"
+    permLevel: "User"
 };
 
 exports.help = {
     name: "serverinfo",
-    category: "Staff Restricted Commands",
+    category: "Information",
     description: "Display relevant server information",
     usage: "serverinfo"
 };

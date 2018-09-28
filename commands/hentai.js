@@ -3,7 +3,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   if (message.channel.nsfw === true) {
     const { get } = require('superagent')
       .get('https://discordbots.org/api/bots/365958655926992896/check')
-      .set('Authorization', '') 
+      .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM2NTk1ODY1NTkyNjk5Mjg5NiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTI0Mzk3NDM2fQ.hDuOFF9-zi2i4ZqSDPVtD-VpkvWprXqxhcDZkw-d37A') 
       .query({ userId: message.author.id })
       .end((err, res) => {
         console.log(res.body.voted);

@@ -21,6 +21,6 @@ exports.conf = {
 exports.help = {
   name: "bobross",
   category: "Canvas",
-  description: "An Idiotic Bob Ross effect",
+  description: "An Idiotic bob ross effect",
   usage: "bobross @user"
 };

@@ -3,7 +3,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     const { get } = require('superagent')
     .get('https://randomfox.ca/floof/')
         .end((err, response) => {
-          message.channel.send(esponse.body.image);
+          message.channel.send(response.body.image);
         });
 }
 

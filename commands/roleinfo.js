@@ -5,7 +5,7 @@ exports.run = async (client, msg, args, level) => {
     if (!args[0]) return msg.channel.send("Please specific role name\n`l.roleinfo ROLE_NAME`")
 
     var rolename = msg.content.split(" ").slice(1).join(" ");
-    let role = msg.guild.roles.find("name", `${rolename}`)
+    let role = msg.guild.roles.find(i => i.name == rolename)
 
     if(!role) return msg.channel.send("Role wasn't found");
     function checkDays(date) {

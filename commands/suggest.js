@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
   const suggestion = args.slice().join(" ");
-  if (!args[0]) return message.channel.send("Please specify a suggestion");
+  if (!args[0]) return message.channel.send("Please specific a suggestion");
   const channel = client.channels.get('366331400292401152')
   const embed = new Discord.MessageEmbed()
   .setAuthor(message.author.tag, message.author.avatarURL())

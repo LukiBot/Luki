@@ -29,10 +29,12 @@ exports.run = async (client, message, args) => {
     let queueArray = [];
 
     if (queue.get(message.guild.id)) queueArray = queue.get(message.guild.id);
+    
+    console.log(queueArray.length)
 
     if (queueArray.length > 9) {
         embed.setTitle("An error has occurred").setColor('RED')
-            .setDescription("There is a limit of 25 songs, you cannot add more until a space is free.");
+            .setDescription("There is a limit of 10 songs, you cannot add more until a space is free.");
         return channel.send(embed);
     }
 
