@@ -8,7 +8,12 @@ module.exports = (client, guild) => {
     client.settings.delete(guild.id);
     const snekfetch = require('snekfetch');
 
-    const dblkey = '';
+    snekfetch.post(`https://discordboats.xyz/api/bot/${client.user.id}`)
+    .set('Authorization', boatskey)
+    .send({ server_count: client.guilds.size })
+    .then(() => console.log(`Posted to discordboats.xyz `))
+    .catch((e) => console.error(e));
+
      snekfetch.post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
     .set('Authorization', dblkey)
     .send({ server_count: client.guilds.size, 
@@ -17,12 +22,6 @@ module.exports = (client, guild) => {
     .then(() => console.log(`Posted to discordbots.org`))
     .catch((e) => console.error(e));
 
-    const bfdkey = '';
-     snekfetch.post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
-    .set('Authorization', bfdkey)
-    .send({ server_count: client.guilds.size })
-    .then(() => console.log(`Posted to botsfordiscord.com`))
-    .catch((e) => console.error(e));
     const channel = client.channels.get('421337224198619136')
     const embed = new Discord.MessageEmbed()
     .setTitle("Left a guild!")

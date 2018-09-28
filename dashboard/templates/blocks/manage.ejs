@@ -1,0 +1,238 @@
+<%- include('../blocks/header', {bot, user, path}) %>
+  <div class="row">
+    <div class="col col-4">
+      <%- include('../blocks/guild-card', {guild, levelValue, modLogChannel, serverLogChannel}) %>
+    </div>
+    <div class="col">
+        <div class="card-header" style="padding: 2px;">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link" href="/dashboard/<%= guild.id %>/manage">Manage</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/dashboard/<%= guild.id %>/welcomer">Welcomer</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/dashboard/<%= guild.id %>/logs">Logs</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/dashboard/<%= guild.id %>/autorole">Auto-Role</a>
+              </li>
+            </ul>
+            </div>
+            <br>
+        <style>
+            .switch {
+              position: relative;
+              display: inline-block;
+              width: 50px;
+              height: 24px;
+            }
+            
+            .switch input {display:none;}
+            
+            .slider {
+              position: absolute;
+              cursor: pointer;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-color: #ccc;
+              -webkit-transition: .4s;
+              transition: .4s;
+            }
+            
+            .slider:before {
+              position: absolute;
+              content: "";
+              height: 16px;
+              width: 16px;
+              left: 4px;
+              bottom: 4px;
+              background-color: white;
+              -webkit-transition: .4s;
+              transition: .4s;
+            }
+            
+            input:checked + .slider {
+              background-color: #42b581;
+            }
+            
+            input:focus + .slider {
+              box-shadow: 0 0 1px #42b581;
+            }
+            
+            input:checked + .slider:before {
+              -webkit-transform: translateX(26px);
+              -ms-transform: translateX(26px);
+              transform: translateX(26px);
+            }
+            
+            /* Rounded sliders */
+            .slider.round {
+              border-radius: 24px;
+            }
+            
+            .slider.round:before {
+              border-radius: 50%;
+            }
+            </style>
+      <form method="post">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" style="padding: 0;">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0" style="width: 100%; margin: 0 !important;">
+            </div>
+          </li>
+        </ul>
+        <label for="serverlog">Prefix</label>
+        <br>
+      <div class="form-group">
+        <input maxlength=3 name="prefix" placeholder="l." class="form-control" value="<%= prefix %>" required>
+      </div>
+        <br>
+     <label for="levels">Leveling System</label>
+     <br>
+        <label class="switch">
+        <% if (levelValue == 0) { %>
+          <input type="checkbox" class="form-control" name="levels">
+        <% } else { %>
+        <input type="checkbox" class="form-control" name="levels" checked="checked">
+        <% } %>
+        <span class="slider round"></span>
+      </label>
+      <br>
+      <br>
+      <label for="modlog">Mod-Log</label>
+      <br>
+    <div class="form-group">
+      <select style="width: 100px;" name="modlog" class="form-control">
+          <% if (modLogChannel == 'off'){ %>
+            <option selected value="off">Off</option>
+            <% 
+            guild.channels.forEach(channel => {
+                if (channel.type != 'text') return;
+              %>
+              <option value="<%= channel.id %>">#<%= channel.name %></option>
+              <% }); %>  
+            <% } %>
+            <% if (modLogChannel != 'off'){ %>
+            <option value="off">Off</option>
+            <% 
+            guild.channels.forEach(channel => {
+                if (channel.type != 'text') return;
+                if (channel.id == modLogChannel){ %>
+                <option selected value="<%= channel.id %>">#<%= channel.name %></option>
+              <% } %>
+              <option value="<%= channel.id %>">#<%= channel.name %></option>
+              <% }); %>  
+            <% } %>
+      </select>
+    </div>
+    <label for="serverlog">Server-Log (Not Functional)</label>
+    <br>
+  <div class="form-group">
+    <select style="width: 100px;" name="serverlog" class="form-control">
+      <% if (serverLogChannel == 'off'){ %>
+        <option selected value="off">Off</option>
+        <% 
+        guild.channels.forEach(channel => {
+            if (channel.type != 'text') return;
+          %>
+          <option value="<%= channel.id %>">#<%= channel.name %></option>
+          <% }); %>  
+        <% } %>
+        <% if (serverLogChannel != 'off'){ %>
+        <option value="off">Off</option>
+        <% 
+        guild.channels.forEach(channel => {
+            if (channel.type != 'text') return;
+            if (channel.id == serverLogChannel){ %>
+            <option selected value="<%= channel.id %>">#<%= channel.name %></option>
+          <% } %>
+          <option value="<%= channel.id %>">#<%= channel.name %></option>
+          <% }); %>  
+        <% } %>
+    </select>
+  </div>
+  <label for="joinrole">Auto Role</label>
+<div class="form-group">
+  <select style="width: 100px;" name="joinrole" class="form-control">
+    <% if (joinRole == 'off'){ %>
+      <option selected value="off">Off</option>
+      <% 
+      guild.roles.forEach(role => {
+        if (role.name == '@everyone') return;
+        %>
+        <option value="<%= role.id %>"><%= role.name %></option>
+        <% }); %>  
+      <% } %>
+      <% if (joinRole != 'off'){ %>
+      <option value="off">Off</option>
+      <% 
+      guild.roles.forEach(role => {
+        if (role.name == '@everyone') return;
+          if (role.id == joinRole){ %>
+          <option selected value="<%= role.id %>"><%= role.name %></option>
+        <% } %>
+        <option value="<%= role.id %>"><%= role.name %></option>
+        <% }); %>  
+      <% } %>
+  </select>
+</div>  
+  <label for="welcomelog">Welcomer</label>
+<div class="form-group">
+  <select style="width: 100px;" name="welcomelog" class="form-control">
+    <% if (welcomeLog == 'off'){ %>
+      <option selected value="off">Off</option>
+      <% 
+      guild.channels.forEach(channel => {
+          if (channel.type != 'text') return;
+        %>
+        <option value="<%= channel.id %>">#<%= channel.name %></option>
+        <% }); %>  
+      <% } %>
+      <% if (welcomeLog != 'off'){ %>
+      <option value="off">Off</option>
+      <% 
+      guild.channels.forEach(channel => {
+          if (channel.type != 'text') return;
+          if (channel.id == welcomeLog){ %>
+          <option selected value="<%= channel.id %>">#<%= channel.name %></option>
+        <% } %>
+        <option value="<%= channel.id %>">#<%= channel.name %></option>
+        <% }); %>  
+      <% } %>
+  </select>
+</div>
+<% if (welcomeLog != 'off') { %>
+<label for="welcomemessage">Welcome Message</label>
+<br>
+<div class="form-group">
+<input maxlength=2499 name="welcomemessage" placeholder="Welcome {user.mention} to {server.name}!" class="form-control" value="<%= welcomeMessage %>">
+</div>
+<label for="leavemessage">Leave Message</label>
+<br>
+<div class="form-group">
+<input maxlength=2499 name="leavemessage" placeholder="{user.name} has left {server.name}!" class="form-control" value="<%= leaveMessage %>">
+</div>
+<br>
+<label>Variables</label>
+<code>
+{user.mention}
+{user.name}
+{server.name}
+</code>
+<% } %>
+        <div style="width: 100%; text-align: right; margin-top: 20px;">
+          <button type="submit" class="btn btn-primary">Save Changes <i class="fa fa-fw fa-save" aria-hidden="true"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <% include ../blocks/guild-modals %>
+  <script type="text/javascript">
+    var ts = parseInt($('#guildCreate').text());
+    $('#guildCreate').html(`<strong>Created:</strong>: ${moment(ts).format('MMMM Do YYYY (h:mm a)')}`);
+  </script>
+<% include ../blocks/footer %>

@@ -11,19 +11,19 @@ const config = {
   "trusted": [],
 
   "token": "",
-  
+
   "crm" : {
     "users": [],
-    "version": "v1.0.5",
-    "edition": "Premium"
+    "version": "",
+    "edition": ""
   }, 
-  
- "mailer" : {
+
+  "mailer" : {
     "address": "",
     "password": "",
     "host": "",
     "ssl": true
-  },
+  }, 
   
   "dashboard" : {
     "oauthSecret": "",
@@ -32,18 +32,18 @@ const config = {
     "domain": "",
     "port": 80
   },
-  
+
   "lava-link": {
     "nodes": [
       {
-        "host": "",
-        "region": "",
+        "host": "localhost",
+        "region": "us-east",
         "password": "",
         "port": 8080
       }
     ]
   },
-  
+
   "defaultSettings" : {
     "prefix": "",
   },

@@ -24,19 +24,17 @@ module.exports = async client => {
     });
     const snekfetch = require('snekfetch');
 
-    const dblkey = '';
+    snekfetch.post(`https://discordboats.xyz/api/bot/${client.user.id}`)
+    .set('Authorization', boatskey)
+    .send({ server_count: client.guilds.size })
+    .then(() => console.log(`Posted to discordboats.xyz `))
+    .catch((e) => console.error(e));
+
      snekfetch.post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
     .set('Authorization', dblkey)
     .send({ server_count: client.guilds.size, 
           shard_count: 2
       })
     .then(() => console.log(`Posted to discordbots.org`))
-    .catch((e) => console.error(e));
-
-    const bfdkey = '';
-     snekfetch.post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
-    .set('Authorization', bfdkey)
-    .send({ server_count: client.guilds.size })
-    .then(() => console.log(`Posted to botsfordiscord.com`))
     .catch((e) => console.error(e));
 };
