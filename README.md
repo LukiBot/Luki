@@ -34,9 +34,10 @@ Please read [CONTRIBUTING.md](https://github.com/LukiBot/Luki/blob/master/CONTRI
 [**Jacxk**](https://github.com/Jacxk)
 
 ## Widgets
+<p>
  <img width="310" height="150" src="https://discordbots.org/api/widget/365958655926992896.svg">
  <img width="310" height="150" src="https://discordboats.xyz/api/widget/luki">
-
+</p>
 ## Hosting
 We're proudly hosted by [DigitalOcean](https://m.do.co/c/805443143001). Visit the link by clicking the image below to avail Free $10 credits to try out the services.
 
