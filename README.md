@@ -33,8 +33,9 @@ Please read [CONTRIBUTING.md](https://github.com/LukiBot/Luki/blob/master/CONTRI
 
 [**Jacxk**](https://github.com/Jacxk)
 
-## The DBL Widget (White theme by Ofir#0011)
-[![DBL](https://discordbots.org/api/widget/365958655926992896.svg?topcolor=7289DA&middlecolor=fff&usernamecolor=fff&certifiedcolor=fff&datacolor=fff&labelcolor=fff&highlightcolor=7289DA)](https://discordbots.org/bot/365958655926992896)
+## Widgets
+[![DBL](https://discordbots.org/api/widget/365958655926992896.svg)](https://discordbots.org/bot/luki)
+[![DBXYZ](https://discordbots.org/api/widget/luki)](https://discordboats.xyz/bot/luki)
 
 ## Hosting
 We're proudly hosted by [DigitalOcean](https://m.do.co/c/805443143001). Visit the link by clicking the image below to avail Free $10 credits to try out the services.
