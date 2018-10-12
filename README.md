@@ -34,7 +34,7 @@ Please read [CONTRIBUTING.md](https://github.com/LukiBot/Luki/blob/master/CONTRI
 [**Jacxk**](https://github.com/Jacxk)
 
 ## Widgets
-[![DBL](https://discordbots.org/api/widget/365958655926992896.svg)](https://discordbots.org/bot/luki)
+ <img width="310" height="150" src="https://discordbots.org/api/widget/365958655926992896.svg">
  <img width="310" height="150" src="https://discordboats.xyz/api/widget/luki">
 
 ## Hosting
