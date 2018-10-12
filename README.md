@@ -35,7 +35,7 @@ Please read [CONTRIBUTING.md](https://github.com/LukiBot/Luki/blob/master/CONTRI
 
 ## Widgets
 [![DBL](https://discordbots.org/api/widget/365958655926992896.svg)](https://discordbots.org/bot/luki)
-[![DBXYZ](https://discordboats.xyz/api/widget/luki?size=100px)](https://discordboats.xyz/bot/luki)
+[![DBXYZ](https://discordboats.xyz/api/widget/luki){: height="36px" width="36px"}](https://discordboats.xyz/bot/luki)
 
 ## Hosting
 We're proudly hosted by [DigitalOcean](https://m.do.co/c/805443143001). Visit the link by clicking the image below to avail Free $10 credits to try out the services.
