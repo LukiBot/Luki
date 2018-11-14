@@ -7,8 +7,6 @@ const Enmap = require("enmap");
 const EnmapLevel = require("enmap-level");
 const {PlayerManager} = require("discord.js-lavalink");
 const snekfetch = require('snekfetch');
-const fs = require('fs');
-const sql = require('sqlite3');
 var email = require("emailjs");
 
 const client = new Discord.Client({ 
@@ -20,6 +18,8 @@ client.config = require("./config.js");
 
 client.logger = require("./modules/Logger");
 
+client.db = require("./modules/database");
+
 require("./modules/functions.js")(client);
 
 client.commands = new Enmap();
@@ -29,8 +29,6 @@ client.queue = new Enmap();
 client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 
 client.lavaLinkNodes = client.config["lava-link"].nodes;
-
-const serversDB = new sql.Database(process.cwd() + "/database/servers.db")
 
 process.on('SIGINT', () => {
   client.guilds.forEach(guild => {
@@ -151,7 +149,7 @@ const init = async () => {
   });
 
 client.on('guildMemberAdd', async (member) => {
-  serversDB.get(`SELECT * FROM servers WHERE id = ?`, [member.guild.id], (err, row) => {
+  client.db.get(`SELECT * FROM servers WHERE id = ?`, [member.guild.id], (err, row) => {
     if (err) return console.log(err.message);
     if (!row) return;
     if (row.welcomeLog == null) return;
@@ -170,7 +168,7 @@ client.on('guildMemberAdd', async (member) => {
 })
 
 client.on('guildMemberAdd', async (member) => {
-  serversDB.get(`SELECT * FROM servers WHERE id = ?`, [member.guild.id], (err, row) => {
+  client.db.get(`SELECT * FROM servers WHERE id = ?`, [member.guild.id], (err, row) => {
     if (err) return console.log(err.message);
     if (!row) return;
     if (row.joinRole == null) return;
@@ -182,7 +180,7 @@ client.on('guildMemberAdd', async (member) => {
 
 client.on('guildMemberRemove', async (member) => {
 
-  serversDB.get(`SELECT * FROM servers WHERE id = ?`, [member.guild.id], (err, row) => {
+  client.db.get(`SELECT * FROM servers WHERE id = ?`, [member.guild.id], (err, row) => {
     if (err) return console.log(err.message);
     if (!row) return;
     if (row.welcomeLog == null) return;
@@ -202,7 +200,7 @@ client.on('guildMemberRemove', async (member) => {
 
 // server-log 
 client.on('guildMemberAdd', async (member) => {
-  serversDB.get("SELECT * FROM servers WHERE id = ?", [member.guild.id], (err, row) => {
+  client.db.get("SELECT * FROM servers WHERE id = ?", [member.guild.id], (err, row) => {
     if (!row) return;
     if (err) return console.log(err.message);
     if (row.serverlog == 'off') return;
@@ -216,7 +214,7 @@ client.on('guildMemberAdd', async (member) => {
     });
 })
 client.on('guildMemberRemove', async (member) => {
-  serversDB.get("SELECT * FROM servers WHERE id = ?", [member.guild.id], (err, row) => {
+  client.db.get("SELECT * FROM servers WHERE id = ?", [member.guild.id], (err, row) => {
     if (!row) return;
     if (err) return console.log(err.message);
     if (row.serverlog == 'off') return;

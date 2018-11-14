@@ -12,16 +12,8 @@ const passport = require("passport");
 const session = require("express-session");
 const LevelStore = require("level-session-store")(session);
 const Strategy = require("passport-discord").Strategy;
-var email = require("emailjs");
-
+const email = require("emailjs");
 const helmet = require("helmet");
-
-const md = require("marked");
-
-const sql = require('sqlite3');
-const serversDB = new sql.Database(process.cwd() + "/database/servers.db")
-const usersDB = new sql.Database(process.cwd() + "/database/users.db")
-const ticketsDB = new sql.Database(process.cwd() + "/database/tickets.db")
 
 module.exports = (client) => {
 
@@ -84,6 +76,20 @@ module.exports = (client) => {
         res.render(path.resolve(`${templateDir}${path.sep}${template}`), Object.assign(baseData, data));
     };
 
+    app.post('/webhook', function(req, res, next) {
+        var header = req.headers['authorization'];
+        if (header != "webhooks4kewl!") return res.json({
+            "error": true,
+            "status": 403
+        })
+        const embed = new Discord.MessageEmbed()
+        if (req.body.action == 'upvote') {
+            embed.setTitle(req.body.username + ' has upvoted Luki at discord.boats')
+        } else {
+            embed.setTitle(req.body.username + ' has downvoted Luki at discord.boats')
+        }
+        client.guilds.get('339085367770611713').channels.get('421337224198619136').send(embed)
+    })
 
     app.get("/login", (req, res, next) => {
             if (req.session.backURL) {
@@ -147,7 +153,7 @@ module.exports = (client) => {
 
     app.get("/crm/ticket/:ticketID", checkAuth, (req, res) => {
         if (client.config.crm.users.includes(req.user.id) === true) {
-            ticketsDB.get(`SELECT * FROM tickets WHERE id = ?`, [req.params.ticketID], (err, row) => {
+            client.db.get(`SELECT * FROM tickets WHERE id = ?`, [req.params.ticketID], (err, row) => {
                 if (err) {
                     return console.error(err.message);
                 }
@@ -217,7 +223,7 @@ module.exports = (client) => {
 
     app.get("/crm/tickets", checkAuth, (req, res) => {
         if (client.config.crm.users.includes(req.user.id) === true) {
-            ticketsDB.all(`SELECT * FROM tickets`, (err, allTickets) => {
+            client.db.all(`SELECT * FROM tickets`, (err, allTickets) => {
                 if (err) {
                     throw err;
                 }
@@ -241,7 +247,7 @@ module.exports = (client) => {
 
     app.get("/crm/ticket/:ticketID/close", checkAuth, (req, res) => {
         if (client.config.crm.users.includes(req.user.id) === true) {
-            ticketsDB.run(`DELETE FROM tickets WHERE id = ?`, [req.params.ticketID], function(err) {
+            client.db.run(`DELETE FROM tickets WHERE id = ?`, [req.params.ticketID], function(err) {
                 if (err) {
                     return console.error(err.message);
                 }
@@ -299,7 +305,7 @@ module.exports = (client) => {
     });
 
     app.get("/me", checkAuth, (req, res) => {
-        usersDB.get(`SELECT * FROM users WHERE id = ?`, [req.user.id], (err, row) => {
+        client.db.get(`SELECT * FROM users WHERE id = ?`, [req.user.id], (err, row) => {
             if (err) {
                 return console.error(err.message);
             }
@@ -362,18 +368,18 @@ module.exports = (client) => {
         let bio = req.body.bio;
         if (!title) title = "No title was found"
         if (!bio) bio = "No bio was found"
-        usersDB.get(`SELECT * FROM users WHERE id = ?`, [req.user.id], (err, row) => {
+        client.db.get(`SELECT * FROM users WHERE id = ?`, [req.user.id], (err, row) => {
             if (err) {
                 return console.error(err.message);
             }
             if (!row) {
-                usersDB.run(`INSERT INTO users(id, title, bio) VALUES(?, ?, ?)`, [req.user.id, title, bio], function(err) {
+                client.db.run(`INSERT INTO users(id, title, bio) VALUES(?, ?, ?)`, [req.user.id, title, bio], function(err) {
                     if (err) {
                         return console.log(err.message);
                     }
                 });
             } else {
-                usersDB.run(`UPDATE users SET title = ?, bio = ? WHERE id =? `, [title, bio, req.user.id], function(err) {
+                client.db.run(`UPDATE users SET title = ?, bio = ? WHERE id =? `, [title, bio, req.user.id], function(err) {
                     if (err) {
                         return console.error(err.message);
                     }
@@ -390,7 +396,7 @@ module.exports = (client) => {
     app.get("/user/:userID", (req, res) => {
         const user = client.users.get(req.params.userID);
         if (!user) return res.status(404);
-        usersDB.get(`SELECT * FROM users WHERE id = ?`, [req.params.userID], (err, row) => {
+        client.db.get(`SELECT * FROM users WHERE id = ?`, [req.params.userID], (err, row) => {
             if (err) {
                 return console.error(err.message);
             }
@@ -462,7 +468,7 @@ module.exports = (client) => {
         if (!guild) return res.status(404);
         const isManaged = guild && !!guild.member(req.user.id) ? guild.member(req.user.id).permissions.has("MANAGE_GUILD") : false;
         if (!isManaged && !req.session.isAdmin) res.redirect("/");
-        serversDB.get(`SELECT * FROM servers WHERE id = ?`, [req.params.guildID], (err, row) => {
+        client.db.get(`SELECT * FROM servers WHERE id = ?`, [req.params.guildID], (err, row) => {
             if (err) {
                 return console.error(err.message);
             }
@@ -483,7 +489,7 @@ module.exports = (client) => {
                 welcomeMessage = 'Welcome ${user.name} to {server.name}';
                 leaveMessage = '${user.name} has left {server.name}';
                 joinRole = 'off';
-                serversDB.run(`INSERT INTO servers(id) VALUES(?)`, [req.params.guildID], function(err) {
+                client.db.run(`INSERT INTO servers(id) VALUES(?)`, [req.params.guildID], function(err) {
                     if (err) return console.log(err.message)
                 })
             } else {
@@ -546,18 +552,18 @@ module.exports = (client) => {
         if (!welcomemessage) welcomemessage = "Welcome ${user.name} to {server.name}"
         if (!leavemessage) leavemessage = "${user.name} has left {server.name}"
 
-        serversDB.get(`SELECT * FROM servers WHERE id = ?`, [req.params.guildID], (err, row) => {
+        client.db.get(`SELECT * FROM servers WHERE id = ?`, [req.params.guildID], (err, row) => {
             if (err) {
                 return console.error(err.message);
             }
             if (!row) {
-                serversDB.run(`INSERT INTO servers(id, leveling, modlog, serverlog, prefix, welcomeLog, welcomeMessage, leaveMessage, joinRole) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`, [req.params.guildID, value, req.body.modlog, req.body.serverlog, req.body.prefix, req.body.welcomelog, welcomemessage, leavemessage.req.body.joinrole], function(err) {
+                client.db.run(`INSERT INTO servers(id, leveling, modlog, serverlog, prefix, welcomeLog, welcomeMessage, leaveMessage, joinRole) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`, [req.params.guildID, value, req.body.modlog, req.body.serverlog, req.body.prefix, req.body.welcomelog, welcomemessage, leavemessage.req.body.joinrole], function(err) {
                     if (err) {
                         return console.log(err.message);
                     }
                 });
             } else {
-                serversDB.run(`UPDATE servers SET leveling = ?, modlog = ?, serverlog = ?, prefix = ?, welcomeLog = ?, welcomeMessage = ?, leaveMessage = ?, joinRole = ? WHERE id =? `, [value, req.body.modlog, req.body.serverlog, req.body.prefix, req.body.welcomelog, welcomemessage, leavemessage, req.body.joinrole, req.params.guildID], function(err) {
+                client.db.run(`UPDATE servers SET leveling = ?, modlog = ?, serverlog = ?, prefix = ?, welcomeLog = ?, welcomeMessage = ?, leaveMessage = ?, joinRole = ? WHERE id =? `, [value, req.body.modlog, req.body.serverlog, req.body.prefix, req.body.welcomelog, welcomemessage, leavemessage, req.body.joinrole, req.params.guildID], function(err) {
                     if (err) {
                         return console.error(err.message);
                     }

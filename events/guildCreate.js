@@ -8,13 +8,15 @@ module.exports = (client, guild) => {
     client.log("log", `New guild has been joined: ${guild.name} (${guild.id}) with ${guild.memberCount}`, "JOINED");
         const snekfetch = require('snekfetch');
     
-        snekfetch.post(`https://discordboats.xyz/api/bot/${client.user.id}`)
-        .set('Authorization', boatskey)
-        .send({ server_count: client.guilds.size })
-        .then(() => console.log(`Posted to discordboats.xyz `))
-        .catch((e) => console.error(e));
-    
-         snekfetch.post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
+   const boatskey = '';
+    snekfetch.post(`https://discord.boats/api/bot/${client.user.id}`)
+    .set('Authorization', boatskey)
+    .send({ server_count: client.guilds.size })
+    .then(() => console.log(`Posted to discord.boats `))
+    .catch((e) => console.error(e));
+
+        const dblkey = '';
+        snekfetch.post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
         .set('Authorization', dblkey)
         .send({ server_count: client.guilds.size, 
               shard_count: 2

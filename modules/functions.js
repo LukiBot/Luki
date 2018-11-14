@@ -1,6 +1,4 @@
 module.exports = (client) => {
-  const sqlite3 = require("sqlite3");
-  const db = new sqlite3.Database('./database/servers.db');
  client.permlevel = message => {
     let permlvl = 0;
 
@@ -40,17 +38,18 @@ module.exports = (client) => {
    };
 
   client.modlog = (serverid, type, mod, badguy, reason, color) => {
+    const Discord = require("discord.js");
     const { MessageEmbed } = require("discord.js");
     const guild = client.guilds.get(serverid);
 
 
     if (!reason) reason = "No reason provided";
 
-    db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
+    client.db.get("SELECT * FROM servers WHERE id = ?", [serverid], (err, row) => {
       if (!row) return;
       if (err) return console.log(err.message);
       if (row.modlog == 'off') return console.log(`Modlog is disabled on ${guild.name}`)
-      const embed = new MessageEmbed()
+      const embed = new Discord.MessageEmbed()
       .setTitle(type + " case")
       .setColor(color)
       .addField("Moderator:", mod, true)

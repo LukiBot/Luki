@@ -2,16 +2,13 @@ module.exports = (client, message) => {
   
 if (message.author.bot) return;
 
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./database/users.db')
-const db2 = new sqlite3.Database('./database/servers.db')
 var userid = message.author.id;
-db.get(`SELECT * FROM users WHERE id = ?`, [userid], (err, row) => {
+client.db.get(`SELECT * FROM users WHERE id = ?`, [userid], (err, row) => {
  if (err) {
     console.log(err.message)
  }
  if (!row) {
-    db.run(`INSERT INTO users(exp, id, balance) VALUES(?, ?, ?)`, [1, userid, 1], function(err) {
+  client.db.run(`INSERT INTO users(exp, id, balance) VALUES(?, ?, ?)`, [1, userid, 1], function(err) {
         if (err) {
           return console.log(err.message);
         }
@@ -20,20 +17,20 @@ db.get(`SELECT * FROM users WHERE id = ?`, [userid], (err, row) => {
       return;
 }
   var exp = row.exp + 1;
-  db.run(`UPDATE users SET exp = ? WHERE id = ?`, [exp, userid], function(err) {
+  client.db.run(`UPDATE users SET exp = ? WHERE id = ?`, [exp, userid], function(err) {
     if (err) {
       return console.error(err.message);
     }
-    db.get(`SELECT * FROM users WHERE id = ?`, [userid], (err, row2) => {
+    client.db.get(`SELECT * FROM users WHERE id = ?`, [userid], (err, row2) => {
       if (row2.exp > row2.level * 10) {
         var levelup = row2.level + 1
         var moremoney = row.balance + row.level * 10
-            db.run(`UPDATE users SET exp = ?, level = ?, balance = ? WHERE id = ?`, [1, levelup, moremoney, userid], (err) => {
+        client.db.run(`UPDATE users SET exp = ?, level = ?, balance = ? WHERE id = ?`, [1, levelup, moremoney, userid], (err) => {
               if (err) return console.log(`Error in MESSAGE event : line 17`)
               var serverid = message.guild.id;
-              db2.get(`SELECT * FROM servers WHERE id =?`, [serverid], (err, row3) => {
+              client.db.get(`SELECT * FROM servers WHERE id =?`, [serverid], (err, row3) => {
                 if (!row3) {
-                  db2.run(`INSERT INTO servers(id) VALUES(?)`, [serverid], function(err) {
+                  client.db.run(`INSERT INTO servers(id) VALUES(?)`, [serverid], function(err) {
                       if (err) {
                         return console.log(err.message);
                       }
@@ -59,7 +56,7 @@ db.get(`SELECT * FROM users WHERE id = ?`, [userid], (err, row) => {
 
   const settings = message.settings = client.getGuildSettings(message.guild);
 
-  db2.get(`SELECT * FROM servers WHERE id = ?`, [message.guild.id], (err, row) => {
+  client.db.get(`SELECT * FROM servers WHERE id = ?`, [message.guild.id], (err, row) => {
     if (err) {
        console.log(err.message)
     }
