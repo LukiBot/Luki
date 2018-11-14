@@ -38,7 +38,7 @@ Please read [CONTRIBUTING.md](https://github.com/LukiBot/Luki/blob/master/CONTRI
  <a href="https://discordbots.org/bot/luki">
  <img width="310" height="150" src="https://discordbots.org/api/widget/365958655926992896.svg">
  </a>
- <a href="https://discordboats.xyz/bot/luki">
+ <a href="https://discord.boats/bot/luki">
  <img width="310" height="150" src="https://discord.boats/api/widget/luki">
  </a>
 </p>
