@@ -1,5 +1,3 @@
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./database/users.db')
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
   if (message.mentions.users.size > 0) {
@@ -12,19 +10,19 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   } else {
     var username = message.author.username
   }
-  db.get(`SELECT level FROM users WHERE id = ?`, [userid], (err, row) => {
+  client.db.get(`SELECT level FROM users WHERE id = ?`, [userid], (err, row) => {
     if (err) {
       return console.error(err.message);
     }
 
     if (!row){
 
-    db.run(`INSERT INTO users(id) VALUES(?)`, [userid], function(err) {
+      client.db.run(`INSERT INTO users(id) VALUES(?)`, [userid], function(err) {
         if (err) {
         return console.log(err.message);
     }
         console.log("added user to levels database")
-        db.get(`SELECT level FROM users WHERE id =?`, [userid], (err, row2) => {
+        client.db.get(`SELECT level FROM users WHERE id =?`, [userid], (err, row2) => {
           if (message.mentions.users.size > 0) {
             message.channel.send(username + " level is " + row2.level);
           } else {

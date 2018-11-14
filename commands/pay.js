@@ -1,6 +1,4 @@
 const Discord = require("discord.js")
-const sqlite3 = require("sqlite3")
-const db = new sqlite3.Database('./database/users.db')
 
 exports.run = async (client, message, args, level) => { 
   const amount = args[1]
@@ -11,10 +9,10 @@ exports.run = async (client, message, args, level) => {
   if (amount == 0) return message.channel.send("Please specify a larger amount than 1");
   if (amount > 10000) return message.channel.send("Please specify a smaller amount than 10000");
   if (isNaN(amount) || amount.includes(".") || amount.includes("+") || amount.includes("-")) return message.channel.send("Please specify a valid number");
-  db.get(`SELECT * FROM users WHERE id = ?`, [message.author.id], (err, row) => {
+  client.db.get(`SELECT * FROM users WHERE id = ?`, [message.author.id], (err, row) => {
     if (err) return console.log(err.message);
     if (!row) {
-      db.run(`INSERT INTO users(id) VALUES(?)`, [user1.id], function(err) {
+      client.db.run(`INSERT INTO users(id) VALUES(?)`, [user1.id], function(err) {
         if (err) return console.log(err.message);
         console.log(`A row has been inserted with rowid ${this.lastID}`)
     });
@@ -23,21 +21,21 @@ exports.run = async (client, message, args, level) => {
     const balance = row.balance;
     if (balance < amount) return message.channel.send("You don't have enough money for that");
     var user1balance = balance - amount;
-    db.run(`UPDATE users SET balance = ? WHERE id = ?`, [user1balance, user1.id], (err) => {
+    client.db.run(`UPDATE users SET balance = ? WHERE id = ?`, [user1balance, user1.id], (err) => {
       if (err) return console.log(err.message);
     })
   })
-  db.get(`SELECT * FROM users WHERE id = ?`, [user2.id], (err, row) => {
+  client.db.get(`SELECT * FROM users WHERE id = ?`, [user2.id], (err, row) => {
     if (err) return console.log(err.message);
     if (!row) {
-      db.run(`INSERT INTO users(id) VALUES(?)`, [user2.id], function(err) {
+      client.db.run(`INSERT INTO users(id) VALUES(?)`, [user2.id], function(err) {
         if (err) return console.log(err.message);
         console.log(`A row has been inserted with rowid ${this.lastID}`)
     });
     return;
     }
     var user2balance = row.balance + amount;
-    db.run(`UPDATE users SET balance = ? WHERE id = ?`, [user2balance, user2.id], (err) => {
+    client.db.run(`UPDATE users SET balance = ? WHERE id = ?`, [user2balance, user2.id], (err) => {
       if (err) return console.log(err.message);
     })
   })

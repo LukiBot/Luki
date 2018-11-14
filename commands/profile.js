@@ -1,6 +1,3 @@
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./database/users.db')
-const { MessageEmbed } = require("discord.js");
 const Discord = require("discord.js");
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
@@ -67,10 +64,10 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     } else {
         badges = "";
     }
-    db.get(`SELECT * FROM users WHERE id = ?`, [userid], (err, row) => {
+    client.db.get(`SELECT * FROM users WHERE id = ?`, [userid], (err, row) => {
         if (err) return console.log(err.message);
         if (!row) {
-            db.run(`INSERT INTO users(id) VALUES(?)`, [userid], function(err) {
+            client.db.run(`INSERT INTO users(id) VALUES(?)`, [userid], function(err) {
                 if (err) return console.log(err.message);
                 console.log(`A row has been inserted with rowid ${this.lastID}`)
             });

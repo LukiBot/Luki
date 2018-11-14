@@ -1,15 +1,13 @@
 const Discord = require("discord.js")
-const sqlite3 = require("sqlite3")
-const db = new sqlite3.Database('./database/users.db')
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
   const action = args[0];
   if (!action) return message.channel.send("Please specify an action!")
   if (action.toLowerCase() === "account") {
-    db.get(`SELECT * FROM users WHERE id = ?`, [message.author.id], (err, row) => {
+    client.db.get(`SELECT * FROM users WHERE id = ?`, [message.author.id], (err, row) => {
       if (err) return console.log(err.message);
       if (!row) {
-        db.run(`INSERT INTO users(id) VALUES(?)`, [message.author.id], function(err) {
+        client.db.run(`INSERT INTO users(id) VALUES(?)`, [message.author.id], function(err) {
           if (err) return console.log(err.message);
           console.log(`A row has been inserted with rowid ${this.lastID}`)
       });
@@ -24,10 +22,10 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
       message.channel.send(embed)
     })
   } else if (action.toLowerCase() === "balance") {
-    db.get(`SELECT * FROM users WHERE id = ?`, [message.author.id], (err, row) => {
+    client.db.get(`SELECT * FROM users WHERE id = ?`, [message.author.id], (err, row) => {
       if (err) return console.log(err.message);
       if (!row) {
-        db.run(`INSERT INTO users(id) VALUES(?)`, [message.author.id], function(err) {
+        client.db.run(`INSERT INTO users(id) VALUES(?)`, [message.author.id], function(err) {
           if (err) return console.log(err.message);
           console.log(`A row has been inserted with rowid ${this.lastID}`)
       });

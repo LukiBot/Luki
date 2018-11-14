@@ -1,6 +1,4 @@
 const Discord = require("discord.js")
-const sqlite3 = require("sqlite3")
-const db = new sqlite3.Database('./database/users.db')
 
 exports.run = async (client, message, args, level) => {
     let newAmount;
@@ -9,7 +7,7 @@ exports.run = async (client, message, args, level) => {
     if (amount == 0) return message.channel.send("Please specify a larger amount than 1");
     if (amount > 500) return message.channel.send("Please specify a smaller amount than 500");
     if (isNaN(amount) || amount.includes(".") || amount.includes("+") || amount.includes("-")) return message.channel.send("Please specify a valid number");
-    db.get(`SELECT * FROM users WHERE id = ?`, [message.author.id], (err, row) => {
+    client.db.get(`SELECT * FROM users WHERE id = ?`, [message.author.id], (err, row) => {
         if (err) {
             const errEmbed = new Discord.MessageEmbed();
             errEmbed.setTitle("An error has occurred")
@@ -17,7 +15,7 @@ exports.run = async (client, message, args, level) => {
             return message.channel.send(errEmbed);
         }
         if (!row) {
-            db.run(`INSERT INTO users(id) VALUES(?)`, [message.author.id], function(err) {
+            client.db.run(`INSERT INTO users(id) VALUES(?)`, [message.author.id], function(err) {
                 if (err) {
                     const errEmbed = new Discord.MessageEmbed();
                     errEmbed.setTitle("An error has occurred")
@@ -36,7 +34,7 @@ exports.run = async (client, message, args, level) => {
         const embed = new Discord.MessageEmbed();
         if (result === 1) {
             newAmount = amount * 2;
-            db.run(`UPDATE users SET balance = ? WHERE id = ?`, [newAmount, message.author.id], (err) => {
+            client.db.run(`UPDATE users SET balance = ? WHERE id = ?`, [newAmount, message.author.id], (err) => {
                 if (err) {
                     const errEmbed = new Discord.MessageEmbed();
                     errEmbed.setTitle("An error has occurred")
@@ -47,7 +45,7 @@ exports.run = async (client, message, args, level) => {
             embed.addField("You won", "$" + newAmount)
         } else {
             newAmount = row.balance - amount;
-            db.run(`UPDATE users SET balance = ? WHERE id = ?`, [newAmount, message.author.id], (err) => {
+            client.db.run(`UPDATE users SET balance = ? WHERE id = ?`, [newAmount, message.author.id], (err) => {
                 if (err) {
                     const errEmbed = new Discord.MessageEmbed();
                     errEmbed.setTitle("An error has occurred")
