@@ -2,13 +2,11 @@
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
     if (message.channel.nsfw === true) {
       const { get } = require('superagent')
-        .get('https://discordbots.org/api/bots/365958655926992896/check')
-        .set('Authorization', 'oof') 
-        .query({ userId: message.author.id })
-        .end((err, res) => {
-          console.log(res.body.voted);
-          var check = res.body.voted;
-          if (check == 1) {
+      .get('https://discord.boats/api/bot/luki/voted')
+      .query({ id: message.author.id })
+      .end((err, res) => {
+        var check = res.body.voted;
+        if (check == true) {
             const { get } = require('superagent')
            .get('https://nekobot.xyz/api/image')
            .query({ type: 'anal' }) 
@@ -18,11 +16,11 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
           } else {
             message.channel.send({embed: {
               title: "Upvoters-Only Command",
-              url: "https://discordbots.org/bot/luki/vote",
+              url: "https://discord.boats/bot/365958655926992896/vote",
               description: "This command is available only for upvoters",
               fields: [{
                   name: "Go upvote at",
-                  value: "https://discordbots.org/bot/luki/vote"
+                  value: "https://discord.boats/bot/365958655926992896/vote"
                 }
               ],
               timestamp: new Date(),
