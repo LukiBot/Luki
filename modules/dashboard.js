@@ -78,7 +78,7 @@ module.exports = (client) => {
 
     app.post('/webhook', function(req, res, next) {
         var header = req.headers['authorization'];
-        if (header != "webhooks4kewl!") return res.json({
+        if (header != "") return res.json({
             "error": true,
             "status": 403
         })
